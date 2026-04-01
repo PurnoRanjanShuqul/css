@@ -3,1416 +3,1321 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>CSS Master Dashboard Fixed Balanced Version</title>
+  <title>CSS Learning Dashboard - Bangla Notes</title>
   <style>
     :root{
-      --bg:#f8fafc;
-      --sidebar:#0f172a;
-      --sidebar2:#111827;
-      --primary:#2563eb;
-      --success:#16a34a;
-      --success-soft:#dcfce7;
-      --warning:#d97706;
-      --warning-soft:#fef3c7;
-      --danger:#dc2626;
-      --danger-soft:#fee2e2;
+      --bg1:#0f172a;
+      --bg2:#1e293b;
+      --panel:#ffffffdd;
+      --glass: rgba(255,255,255,.15);
       --text:#0f172a;
       --muted:#475569;
+      --primary:#7c3aed;
+      --secondary:#06b6d4;
+      --accent:#f59e0b;
+      --good:#16a34a;
+      --mid:#2563eb;
+      --low:#64748b;
+      --danger:#ef4444;
       --card:#ffffff;
-      --border:#e2e8f0;
-      --shadow:0 10px 25px rgba(15, 23, 42, 0.08);
+      --shadow: 0 20px 50px rgba(0,0,0,.12);
+      --radius: 22px;
     }
 
-    *{margin:0;padding:0;box-sizing:border-box;}
-    html{scroll-behavior:smooth;}
+    *{
+      box-sizing: border-box;
+      margin:0;
+      padding:0;
+    }
+
+    html{
+      scroll-behavior:smooth;
+    }
+
     body{
-      font-family:"Segoe UI", Arial, sans-serif;
-      background:linear-gradient(135deg,#eff6ff,#f8fafc,#ecfeff);
-      color:var(--text);
-    }
-
-    .app{
-      display:grid;
-      grid-template-columns:320px 1fr;
+      font-family: "Segoe UI", system-ui, -apple-system, sans-serif;
+      background:
+        radial-gradient(circle at top left, #c4b5fd 0%, transparent 25%),
+        radial-gradient(circle at top right, #67e8f9 0%, transparent 20%),
+        radial-gradient(circle at bottom left, #fde68a 0%, transparent 20%),
+        linear-gradient(135deg, #0f172a, #1e293b 60%, #334155);
       min-height:100vh;
-    }
-
-    .sidebar{
-      background:linear-gradient(180deg,var(--sidebar),var(--sidebar2));
       color:#fff;
-      padding:24px 18px;
-      position:sticky;
-      top:0;
-      height:100vh;
-      overflow:auto;
+      padding:24px;
     }
 
-    .brand{
-      border-bottom:1px solid rgba(255,255,255,.1);
-      padding-bottom:18px;
-      margin-bottom:18px;
+    .container{
+      max-width: 1500px;
+      margin:0 auto;
     }
 
-    .brand h1{
-      font-size:26px;
-      line-height:1.3;
+    .hero{
+      background: linear-gradient(135deg, rgba(255,255,255,.18), rgba(255,255,255,.08));
+      backdrop-filter: blur(18px);
+      border:1px solid rgba(255,255,255,.2);
+      border-radius: 30px;
+      padding: 32px;
+      box-shadow: var(--shadow);
+      margin-bottom: 24px;
+      position: relative;
+      overflow: hidden;
     }
 
-    .brand p{
-      margin-top:8px;
-      color:#cbd5e1;
-      font-size:14px;
+    .hero::before{
+      content:"";
+      position:absolute;
+      inset:-50px auto auto -50px;
+      width:180px;
+      height:180px;
+      background: radial-gradient(circle, rgba(255,255,255,.25), transparent 70%);
+      border-radius: 50%;
+    }
+
+    .hero h1{
+      font-size: clamp(2rem, 4vw, 3.2rem);
+      margin-bottom: 12px;
+      line-height:1.1;
+    }
+
+    .hero p{
+      color:#e2e8f0;
+      max-width: 950px;
       line-height:1.7;
+      font-size:1rem;
     }
 
-    .nav-title{
-      font-size:12px;
-      text-transform:uppercase;
-      letter-spacing:1px;
-      color:#93c5fd;
-      margin:18px 0 10px;
+    .top-actions{
+      display:flex;
+      flex-wrap:wrap;
+      gap:14px;
+      margin-top:22px;
     }
 
-    .nav a{
-      display:block;
-      text-decoration:none;
-      color:#e5e7eb;
-      background:rgba(255,255,255,.04);
-      padding:11px 13px;
-      border-radius:12px;
-      margin-bottom:8px;
-      transition:.25s;
-      font-size:14px;
-    }
-
-    .nav a:hover{
-      background:rgba(37,99,235,.2);
-      transform:translateX(4px);
+    .search-box, .filter-box{
+      background: rgba(255,255,255,.14);
+      border:1px solid rgba(255,255,255,.22);
+      border-radius: 16px;
+      padding: 12px 16px;
       color:#fff;
-    }
-
-    .side-note{
-      margin-top:18px;
-      padding:14px;
-      border-radius:14px;
-      background:rgba(255,255,255,.05);
-      color:#cbd5e1;
-      font-size:13px;
-      line-height:1.7;
-      border:1px solid rgba(255,255,255,.08);
-    }
-
-    .main{padding:28px;}
-
-    .topbar{
-      background:rgba(255,255,255,.88);
-      border:1px solid rgba(255,255,255,.8);
-      box-shadow:var(--shadow);
-      border-radius:22px;
-      padding:22px;
-      display:flex;
-      justify-content:space-between;
-      align-items:center;
-      gap:16px;
-      flex-wrap:wrap;
-      margin-bottom:24px;
-    }
-
-    .topbar h2{
-      font-size:30px;
-      margin-bottom:8px;
-    }
-
-    .topbar p{
-      color:var(--muted);
-      line-height:1.8;
-      max-width:860px;
-    }
-
-    .tools{
-      display:flex;
-      gap:10px;
-      flex-wrap:wrap;
-    }
-
-    .search{
-      width:340px;
-      max-width:100%;
-      padding:12px 14px;
-      border:1px solid #cbd5e1;
-      border-radius:12px;
       outline:none;
-      font-size:14px;
+      min-width: 260px;
     }
 
-    .btn{
-      border:none;
-      background:var(--primary);
-      color:#fff;
-      padding:12px 16px;
-      border-radius:12px;
-      cursor:pointer;
-      font-weight:600;
-      transition:.25s;
+    .search-box::placeholder{
+      color:#cbd5e1;
     }
-
-    .btn:hover{background:#1d4ed8;}
 
     .stats{
       display:grid;
-      grid-template-columns:repeat(4,1fr);
+      grid-template-columns: repeat(auto-fit, minmax(180px,1fr));
       gap:16px;
-      margin-bottom:28px;
+      margin:24px 0 32px;
     }
 
     .stat{
-      background:var(--card);
-      border:1px solid var(--border);
-      box-shadow:var(--shadow);
-      border-radius:18px;
-      padding:18px;
+      background: var(--panel);
+      color: var(--text);
+      padding:20px;
+      border-radius:20px;
+      box-shadow: var(--shadow);
     }
 
-    .stat h4{
-      color:#64748b;
-      font-size:14px;
-      margin-bottom:10px;
+    .stat h3{
+      font-size: 2rem;
+      color: var(--primary);
+      margin-bottom: 6px;
     }
 
-    .stat .big{
-      font-size:24px;
-      font-weight:700;
+    .stat p{
+      color: var(--muted);
+      font-weight: 600;
+    }
+
+    .toc{
+      background: rgba(255,255,255,.12);
+      border:1px solid rgba(255,255,255,.15);
+      backdrop-filter: blur(12px);
+      border-radius: 24px;
+      padding: 22px;
+      margin-bottom: 30px;
+    }
+
+    .toc h2{
+      margin-bottom: 14px;
+      font-size: 1.4rem;
+    }
+
+    .toc-links{
+      display:flex;
+      flex-wrap:wrap;
+      gap:10px;
+    }
+
+    .toc a{
+      text-decoration:none;
+      color:white;
+      background: rgba(255,255,255,.12);
+      border:1px solid rgba(255,255,255,.15);
+      padding:10px 14px;
+      border-radius:999px;
+      font-size:.95rem;
+      transition:.25s ease;
+    }
+
+    .toc a:hover{
+      transform: translateY(-2px);
+      background: rgba(255,255,255,.22);
     }
 
     .section{
-      margin-bottom:38px;
+      margin-bottom: 42px;
     }
 
-    .section-head{
+    .section-title{
       display:flex;
-      justify-content:space-between;
       align-items:center;
+      justify-content:space-between;
       gap:12px;
-      margin-bottom:12px;
+      margin-bottom:18px;
       flex-wrap:wrap;
     }
 
-    .section-head h3{
-      font-size:28px;
+    .section-title h2{
+      font-size: 1.8rem;
     }
 
-    .desc{
-      color:var(--muted);
-      line-height:1.8;
-      margin-bottom:18px;
+    .section-title p{
+      color:#cbd5e1;
     }
 
-    .badge{
-      padding:8px 12px;
-      border-radius:999px;
-      font-size:13px;
-      font-weight:700;
-    }
-
-    .essential{background:var(--danger-soft);color:var(--danger);}
-    .important{background:var(--warning-soft);color:var(--warning);}
-    .advanced{background:var(--success-soft);color:var(--success);}
-
-    .grid{
+    .cards{
       display:grid;
-      grid-template-columns:repeat(2,1fr);
+      grid-template-columns: repeat(auto-fit, minmax(320px,1fr));
       gap:18px;
-      align-items:start;
     }
 
     .card{
-      background:var(--card);
-      border:1px solid var(--border);
-      box-shadow:var(--shadow);
-      border-radius:20px;
-      overflow:hidden;
-      align-self:start;
-    }
-
-    .card-top{
-      padding:16px 18px;
-      background:linear-gradient(135deg,#eff6ff,#f8fafc);
-      border-bottom:1px solid #dbeafe;
-    }
-
-    .priority, .usage{
-      display:inline-block;
-      margin-bottom:10px;
-      margin-right:8px;
-      padding:6px 10px;
-      border-radius:999px;
-      font-size:12px;
-      font-weight:700;
-    }
-
-    .red{background:var(--danger-soft);color:var(--danger);}
-    .yellow{background:var(--warning-soft);color:var(--warning);}
-    .green{background:var(--success-soft);color:var(--success);}
-    .most{background:#dbeafe;color:#1d4ed8;}
-    .mid{background:#ede9fe;color:#6d28d9;}
-    .less{background:#ecfccb;color:#3f6212;}
-
-    .card-top h4{
-      font-size:21px;
-      margin-bottom:6px;
-    }
-
-    .mini{
-      color:#64748b;
-      font-size:14px;
-    }
-
-    .card-body{
-      padding:18px;
+      background: #fff;
+      color: var(--text);
+      border-radius: 24px;
+      padding:20px;
+      box-shadow: var(--shadow);
+      transition: .25s ease;
+      border: 1px solid #eef2ff;
       display:flex;
       flex-direction:column;
       gap:14px;
     }
 
-    .block h5{
-      color:var(--primary);
-      font-size:14px;
-      margin-bottom:6px;
+    .card:hover{
+      transform: translateY(-6px);
     }
 
-    .block p,.block li{
+    .card-top{
+      display:flex;
+      align-items:flex-start;
+      justify-content:space-between;
+      gap:10px;
+    }
+
+    .card h3{
+      font-size: 1.15rem;
+      color:#111827;
+      line-height:1.3;
+    }
+
+    .badge{
+      padding:6px 10px;
+      border-radius:999px;
+      font-size:.75rem;
+      font-weight:700;
+      white-space:nowrap;
+      color:white;
+    }
+
+    .most{ background: var(--good); }
+    .mid{ background: var(--mid); }
+    .less{ background: var(--low); }
+
+    .desc{
       color:#334155;
-      line-height:1.78;
-      font-size:15px;
+      line-height:1.75;
+      font-size:.96rem;
     }
 
-    .block ul,.block ol{
-      padding-left:18px;
-    }
-
-    pre{
-      background:#0f172a;
-      color:#e2e8f0;
-      padding:14px;
-      border-radius:14px;
+    .example{
+      background: #0f172a;
+      color: #e2e8f0;
+      border-radius: 16px;
+      padding: 14px;
       overflow:auto;
-      font-size:14px;
-      line-height:1.6;
-      margin-top:2px;
+      font-size:.9rem;
+      font-family: Consolas, monospace;
+      white-space: pre-wrap;
     }
 
-    .roadmap{
-      background:#fff;
-      border:1px solid var(--border);
-      border-radius:20px;
-      box-shadow:var(--shadow);
-      padding:20px;
-    }
-
-    .roadmap ol{padding-left:20px;}
-    .roadmap li{
-      margin-bottom:10px;
-      line-height:1.8;
-      color:#334155;
+    .mini-demo{
+      border:2px dashed #cbd5e1;
+      border-radius:16px;
+      padding:14px;
+      background:#f8fafc;
+      color:#1e293b;
+      line-height:1.7;
+      font-size:.94rem;
     }
 
     .footer{
-      text-align:center;
-      color:#64748b;
-      padding:18px 0 8px;
-      font-size:14px;
+      margin-top:40px;
+      background: rgba(255,255,255,.12);
+      border:1px solid rgba(255,255,255,.15);
+      border-radius:24px;
+      padding:20px;
+      color:#e2e8f0;
+      line-height:1.8;
     }
 
-    .hide{display:none !important;}
-
-    @media (max-width:1100px){
-      .stats{grid-template-columns:repeat(2,1fr);}
-      .grid{grid-template-columns:1fr;}
+    mark{
+      background:#fde68a;
+      color:#111827;
+      padding:0 3px;
+      border-radius:4px;
     }
 
-    @media (max-width:900px){
-      .app{grid-template-columns:1fr;}
-      .sidebar{height:auto;position:relative;}
+    .hidden{
+      display:none !important;
     }
 
-    @media (max-width:600px){
-      .stats{grid-template-columns:1fr;}
-      .topbar h2{font-size:24px;}
-    }
-
-    @media print{
-      .sidebar,.tools{display:none !important;}
-      .app{display:block;}
-      .main{padding:0;}
-      .card,.topbar,.stat,.roadmap{box-shadow:none;}
-      body{background:#fff;}
+    @media (max-width:768px){
+      body{ padding:14px; }
+      .hero, .toc, .footer{ padding:20px; }
+      .cards{ grid-template-columns:1fr; }
     }
   </style>
 </head>
 <body>
-<div class="app">
-  <aside class="sidebar">
-    <div class="brand">
-      <h1>CSS Master Dashboard<br>Fixed Balanced Version</h1>
-      <p>Same dashboard logic, but balanced cards with equal content structure</p>
-    </div>
+  <div class="container">
 
-    <div class="nav-title">Navigation</div>
-    <nav class="nav">
-      <a href="#overview">Overview</a>
-      <a href="#roadmap">Roadmap</a>
-      <a href="#syntax">Syntax & Rules</a>
-      <a href="#selectors">Selectors</a>
-      <a href="#colors">Colors & Units</a>
-      <a href="#boxmodel">Box Model</a>
-      <a href="#typography">Typography</a>
-      <a href="#display">Display & Visibility</a>
-      <a href="#position">Positioning</a>
-      <a href="#flexbox">Flexbox</a>
-      <a href="#grid">Grid</a>
-      <a href="#responsive">Responsive Design</a>
-      <a href="#backgrounds">Backgrounds & Borders</a>
-      <a href="#effects">Effects & Shadows</a>
-      <a href="#transform">Transform / Transition / Animation</a>
-      <a href="#forms">Forms & UI</a>
-    </nav>
+    <section class="hero">
+      <h1>🎨 CSS Learning Dashboard — বাংলা নোটস</h1>
+      <p>
+        এই ড্যাশবোর্ডটি এমনভাবে তৈরি করা হয়েছে যাতে একজন beginner ধীরে ধীরে CSS শিখতে পারে,
+        revise করতে পারে, এবং real project-এ কোন property কোথায় ব্যবহার হয় তা বুঝতে পারে।
+        প্রতিটি topic আলাদা card-এ রাখা হয়েছে, section wise ভাগ করা হয়েছে, বাংলা theory দেওয়া হয়েছে,
+        usage level mark করা হয়েছে, এবং ছোট example দেওয়া হয়েছে। এটা তোমার personal HTML notes হিসেবেও ব্যবহার করতে পারবে।
+      </p>
 
-    <div class="side-note">
-      <strong>Fix Applied:</strong><br>
-      প্রতিটি card-এ এখন একই ধরনের content structure আছে:<br>
-      Note + Use Case + Tip + Example
-    </div>
-  </aside>
-
-  <main class="main">
-    <section class="topbar" id="overview">
-      <div>
-        <h2>CSS Master Dashboard — Fixed Balanced Version</h2>
-        <p>
-          এই version-এ design structure same রাখা হয়েছে, কিন্তু card content balanced করা হয়েছে।
-          এখন প্রতিটি card visualভাবে অনেক বেশি proper লাগবে, কারণ content blocks uniform রাখা হয়েছে।
-        </p>
-      </div>
-      <div class="tools">
-        <input id="searchInput" class="search" type="text" placeholder="Search... যেমন: flexbox, box model, media query">
-        <button class="btn" onclick="window.print()">Print / Save PDF</button>
+      <div class="top-actions">
+        <input type="text" id="searchInput" class="search-box" placeholder="🔍 Topic search করো... যেমন color, flex, grid" />
+        <select id="usageFilter" class="filter-box">
+          <option value="all">সব usage level</option>
+          <option value="most">Most Use</option>
+          <option value="mid">Mid Use</option>
+          <option value="less">Less Use</option>
+        </select>
       </div>
     </section>
 
     <section class="stats">
-      <div class="stat"><h4>Fix Type</h4><div class="big">Balanced Cards</div></div>
-      <div class="stat"><h4>Layout</h4><div class="big">Same UI</div></div>
-      <div class="stat"><h4>Change</h4><div class="big">Content Structure</div></div>
-      <div class="stat"><h4>Goal</h4><div class="big">Professional Look</div></div>
-    </section>
-
-    <section class="section" id="roadmap">
-      <div class="section-head">
-        <h3>CSS Learning Roadmap</h3>
-        <span class="badge essential">Follow This Order</span>
+      <div class="stat">
+        <h3 id="topicCount">0</h3>
+        <p>মোট Topics</p>
       </div>
-      <div class="roadmap">
-        <ol>
-          <li>Syntax & Basic Rules</li>
-          <li>Selectors</li>
-          <li>Colors & Units</li>
-          <li>Box Model</li>
-          <li>Typography</li>
-          <li>Display & Position</li>
-          <li>Flexbox</li>
-          <li>Grid</li>
-          <li>Responsive Design</li>
-          <li>Backgrounds, Borders, Effects</li>
-          <li>Transitions, Animations</li>
-          <li>Forms & UI Styling</li>
-        </ol>
+      <div class="stat">
+        <h3>Section Wise</h3>
+        <p>রঙ, টেক্সট, বক্স, লেআউট, Responsive, Animation সহ অনেক কিছু</p>
+      </div>
+      <div class="stat">
+        <h3>বাংলা Theory</h3>
+        <p>Beginner-friendly ব্যাখ্যা ও practical use case</p>
+      </div>
+      <div class="stat">
+        <h3>Practice Ready</h3>
+        <p>প্রতিটি টপিকে code example আছে</p>
       </div>
     </section>
 
-    <section class="section" id="syntax">
-      <div class="section-head">
-        <h3>Syntax & Basic Rules</h3>
-        <span class="badge essential">Must Master</span>
-      </div>
-      <div class="grid">
-        <div class="card searchable" data-search="css syntax property value declaration">
-          <div class="card-top">
-            <span class="priority red">Highest Priority</span>
-            <span class="usage most">Most Used</span>
-            <h4>1. CSS Rule Structure</h4>
-            <div class="mini">selector + property + value</div>
-          </div>
-          <div class="card-body">
-            <div class="block">
-              <h5>Detailed Essential Note</h5>
-              <p>
-                CSS rule মূলত selector, property, এবং value দিয়ে তৈরি হয়। Selector target ঠিক করে,
-                property style-এর ধরন বলে, আর value style-এর actual মান দেয়।
-                সব CSS rule এই basic pattern follow করে।
-              </p>
-            </div>
-            <div class="block">
-              <h5>When / Where to Use</h5>
-              <p>
-                CSS-এর প্রতিটি styling rule লেখার সময় এই structure-ই ব্যবহার হয়। এটা CSS-এর foundation।
-              </p>
-            </div>
-            <div class="block">
-              <h5>Pro Tip / Common Mistake</h5>
-              <p>
-                Semicolon বা curly brace ভুলে গেলে পুরো rule কাজ নাও করতে পারে। শুরুতেই syntax discipline তৈরি করো।
-              </p>
-            </div>
-            <div class="block">
-              <h5>Example</h5>
-              <pre><code>h1 {
-  color: blue;
-  font-size: 32px;
-}</code></pre>
-            </div>
-          </div>
-        </div>
-
-        <div class="card searchable" data-search="inline internal external css">
-          <div class="card-top">
-            <span class="priority yellow">Important</span>
-            <span class="usage mid">Mid Use</span>
-            <h4>2. Ways to Use CSS</h4>
-            <div class="mini">inline, internal, external</div>
-          </div>
-          <div class="card-body">
-            <div class="block">
-              <h5>Detailed Essential Note</h5>
-              <p>
-                CSS তিনভাবে use করা যায়: inline, internal, external। Real project-এ external CSS সবচেয়ে clean,
-                reusable, এবং maintainable solution।
-              </p>
-            </div>
-            <div class="block">
-              <h5>When / Where to Use</h5>
-              <p>
-                Small demo-তে internal বা inline দেখা যায়, কিন্তু production site-এ mostly external stylesheet use করা হয়।
-              </p>
-            </div>
-            <div class="block">
-              <h5>Pro Tip / Common Mistake</h5>
-              <p>
-                Beginners অনেক সময় সব style inline লেখে, এতে code messy হয়ে যায়। শুরু থেকেই external CSS practice করো।
-              </p>
-            </div>
-            <div class="block">
-              <h5>Example</h5>
-              <pre><code>&lt;link rel="stylesheet" href="style.css"&gt;</code></pre>
-            </div>
-          </div>
-        </div>
+    <section class="toc">
+      <h2>📚 Section Navigation</h2>
+      <div class="toc-links">
+        <a href="#intro">CSS Basics</a>
+        <a href="#selectors">Selectors</a>
+        <a href="#colors">Colors & Background</a>
+        <a href="#text">Text & Font</a>
+        <a href="#boxmodel">Box Model</a>
+        <a href="#sizing">Sizing</a>
+        <a href="#display">Display & Position</a>
+        <a href="#flexbox">Flexbox</a>
+        <a href="#grid">Grid</a>
+        <a href="#list-table">List & Table</a>
+        <a href="#responsive">Responsive Design</a>
+        <a href="#transform">Transform & Transition</a>
+        <a href="#animation">Animation</a>
+        <a href="#effects">Effects</a>
+        <a href="#variables">Variables & Functions</a>
+        <a href="#advanced">Advanced CSS</a>
+        <a href="#pseudo">Pseudo Classes/Elements</a>
+        <a href="#forms">Forms UI</a>
+        <a href="#media">Media & Object Fit</a>
       </div>
     </section>
 
-    <section class="section" id="selectors">
-      <div class="section-head">
-        <h3>Selectors</h3>
-        <span class="badge essential">Must Master</span>
-      </div>
-      <div class="grid">
-        <div class="card searchable" data-search="element class id universal selectors">
-          <div class="card-top">
-            <span class="priority red">Highest Priority</span>
-            <span class="usage most">Most Used</span>
-            <h4>3. Basic Selectors</h4>
-            <div class="mini">element, class, id, universal</div>
-          </div>
-          <div class="card-body">
-            <div class="block">
-              <h5>Detailed Essential Note</h5>
-              <p>
-                Selector CSS-এর targeting system। Class selector সবচেয়ে reusable, id selector unique element target করে,
-                আর element selector tag-based styling দেয়।
-              </p>
-            </div>
-            <div class="block">
-              <h5>When / Where to Use</h5>
-              <p>
-                Daily styling-এ class selector সবচেয়ে বেশি use হয়। Specific unique element-এ id লাগতে পারে।
-              </p>
-            </div>
-            <div class="block">
-              <h5>Pro Tip / Common Mistake</h5>
-              <p>
-                Styling-এর জন্য id overuse না করে class use করো। এতে CSS reusable ও scalable হয়।
-              </p>
-            </div>
-            <div class="block">
-              <h5>Example</h5>
-              <pre><code>p { color: #333; }
-.box { padding: 20px; }
-#title { font-size: 2rem; }</code></pre>
-            </div>
-          </div>
-        </div>
+    <div id="dashboard"></div>
 
-        <div class="card searchable" data-search="descendant child sibling attribute selectors">
-          <div class="card-top">
-            <span class="priority yellow">Very Important</span>
-            <span class="usage mid">Mid Use</span>
-            <h4>4. Relationship Selectors</h4>
-            <div class="mini">descendant, child, sibling, attribute</div>
-          </div>
-          <div class="card-body">
-            <div class="block">
-              <h5>Detailed Essential Note</h5>
-              <p>
-                HTML structure অনুযায়ী nested বা related element target করতে relationship selectors দরকার হয়।
-                এটি complex UI-তে খুব useful।
-              </p>
-            </div>
-            <div class="block">
-              <h5>When / Where to Use</h5>
-              <p>
-                Nav-এর direct links, card-এর ভিতরের paragraph, type-based input styling — এসব জায়গায় use হয়।
-              </p>
-            </div>
-            <div class="block">
-              <h5>Pro Tip / Common Mistake</h5>
-              <p>
-                অতিরিক্ত deeply nested selector avoid করো, কারণ এতে CSS maintain করা কঠিন হয়ে যায়।
-              </p>
-            </div>
-            <div class="block">
-              <h5>Example</h5>
-              <pre><code>.card p { color: #555; }
-nav > a { text-decoration: none; }
-input[type="email"] { border: 1px solid blue; }</code></pre>
-            </div>
-          </div>
-        </div>
-      </div>
+    <section class="footer">
+      <h3>✅ কিভাবে ব্যবহার করবে?</h3>
+      <p>
+        1. এই HTML file browser-এ open করো।<br>
+        2. Search দিয়ে topic খুঁজে বের করো।<br>
+        3. Usage filter দিয়ে Most Use / Mid Use / Less Use আলাদা করে দেখো।<br>
+        4. প্রতিটি card-এর example নিজে practice করো।<br>
+        5. চাইলে পরে JavaScript, HTML, Bootstrap, Tailwind বা React notes এভাবেই বানাতে পারো।
+      </p>
     </section>
 
-    <section class="section" id="colors">
-      <div class="section-head">
-        <h3>Colors & Units</h3>
-        <span class="badge essential">Must Master</span>
-      </div>
-      <div class="grid">
-        <div class="card searchable" data-search="hex rgb rgba hsl color">
-          <div class="card-top">
-            <span class="priority red">Highest Priority</span>
-            <span class="usage most">Most Used</span>
-            <h4>5. Color Formats</h4>
-            <div class="mini">hex, rgb, rgba, hsl</div>
-          </div>
-          <div class="card-body">
-            <div class="block">
-              <h5>Detailed Essential Note</h5>
-              <p>
-                CSS-এ color অনেক format-এ define করা যায়। Hex সবচেয়ে common,
-                rgba transparency দেয়, hsl theme adjust করতে easy।
-              </p>
-            </div>
-            <div class="block">
-              <h5>When / Where to Use</h5>
-              <p>
-                Text color, background, border, shadow, hover state—সব জায়গায় color use হয়।
-              </p>
-            </div>
-            <div class="block">
-              <h5>Pro Tip / Common Mistake</h5>
-              <p>
-                Random color use না করে consistent color palette রাখো। এতে design professional দেখায়।
-              </p>
-            </div>
-            <div class="block">
-              <h5>Example</h5>
-              <pre><code>body { color: #334155; }
-.box { background: rgba(37, 99, 235, 0.1); }</code></pre>
-            </div>
-          </div>
-        </div>
+  </div>
 
-        <div class="card searchable" data-search="px rem em percent vh vw units">
-          <div class="card-top">
-            <span class="priority red">Highest Priority</span>
-            <span class="usage most">Most Used</span>
-            <h4>6. Size Units</h4>
-            <div class="mini">px, rem, em, %, vh, vw</div>
-          </div>
-          <div class="card-body">
-            <div class="block">
-              <h5>Detailed Essential Note</h5>
-              <p>
-                CSS unit determine করে element কত বড় বা ছোট হবে।
-                px fixed, rem scalable, % relative, vh/vw viewport-based size দেয়।
-              </p>
-            </div>
-            <div class="block">
-              <h5>When / Where to Use</h5>
-              <p>
-                Typography-এ rem, container width-এ %, full-screen section-এ vh, small precise control-এ px useful।
-              </p>
-            </div>
-            <div class="block">
-              <h5>Pro Tip / Common Mistake</h5>
-              <p>
-                সবকিছু px-এ না লিখে responsive thinking নিয়ে unit use করো।
-              </p>
-            </div>
-            <div class="block">
-              <h5>Example</h5>
-              <pre><code>h1 { font-size: 2.5rem; }
-.container { width: 90%; }
-.hero { min-height: 100vh; }</code></pre>
-            </div>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <section class="section" id="boxmodel">
-      <div class="section-head">
-        <h3>Box Model</h3>
-        <span class="badge essential">Must Master</span>
-      </div>
-      <div class="grid">
-        <div class="card searchable" data-search="margin padding border content box model">
-          <div class="card-top">
-            <span class="priority red">Highest Priority</span>
-            <span class="usage most">Most Used</span>
-            <h4>7. Core Box Model</h4>
-            <div class="mini">content, padding, border, margin</div>
-          </div>
-          <div class="card-body">
-            <div class="block">
-              <h5>Detailed Essential Note</h5>
-              <p>
-                প্রতিটি element box-এর মতো behave করে। Content-এর চারপাশে padding, তার বাইরে border,
-                আর সবচেয়ে বাইরে margin থাকে।
-              </p>
-            </div>
-            <div class="block">
-              <h5>When / Where to Use</h5>
-              <p>
-                Card spacing, section gap, button size, layout breathing space—সব box model-এর উপর depend করে।
-              </p>
-            </div>
-            <div class="block">
-              <h5>Pro Tip / Common Mistake</h5>
-              <p>
-                Margin আর padding confuse করো না—margin বাইরে, padding ভেতরে।
-              </p>
-            </div>
-            <div class="block">
-              <h5>Example</h5>
-              <pre><code>.card {
-  padding: 20px;
-  border: 1px solid #ddd;
-  margin: 20px;
-}</code></pre>
-            </div>
-          </div>
-        </div>
-
-        <div class="card searchable" data-search="box-sizing border-box">
-          <div class="card-top">
-            <span class="priority red">Highest Priority</span>
-            <span class="usage most">Most Used</span>
-            <h4>8. Box Sizing</h4>
-            <div class="mini">border-box vs content-box</div>
-          </div>
-          <div class="card-body">
-            <div class="block">
-              <h5>Detailed Essential Note</h5>
-              <p>
-                border-box use করলে width-এর ভিতরেই padding + border count হয়,
-                ফলে layout calculate করা অনেক সহজ হয়।
-              </p>
-            </div>
-            <div class="block">
-              <h5>When / Where to Use</h5>
-              <p>
-                প্রায় সব modern project-এই globalভাবে border-box use করা হয়।
-              </p>
-            </div>
-            <div class="block">
-              <h5>Pro Tip / Common Mistake</h5>
-              <p>
-                Default content-box রেখে complex layout করলে overflow সমস্যা হতে পারে।
-              </p>
-            </div>
-            <div class="block">
-              <h5>Example</h5>
-              <pre><code>* {
-  box-sizing: border-box;
-}</code></pre>
-            </div>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <section class="section" id="typography">
-      <div class="section-head">
-        <h3>Typography</h3>
-        <span class="badge essential">Must Master</span>
-      </div>
-      <div class="grid">
-        <div class="card searchable" data-search="font-family font-size line-height font-weight">
-          <div class="card-top">
-            <span class="priority red">Highest Priority</span>
-            <span class="usage most">Most Used</span>
-            <h4>9. Typography Basics</h4>
-            <div class="mini">font-family, size, weight, line-height</div>
-          </div>
-          <div class="card-body">
-            <div class="block">
-              <h5>Detailed Essential Note</h5>
-              <p>
-                Typography UI readability-এর heart। Font family, size, weight, line-height ঠিক না হলে design সুন্দর হলেও পড়তে খারাপ লাগে।
-              </p>
-            </div>
-            <div class="block">
-              <h5>When / Where to Use</h5>
-              <p>
-                Body text, headings, labels, buttons, form text — সব জায়গায় typography apply হয়।
-              </p>
-            </div>
-            <div class="block">
-              <h5>Pro Tip / Common Mistake</h5>
-              <p>
-                Line-height খুব কম দিলে text crowded লাগে, বেশি দিলে loose লাগে। Balanced রাখো।
-              </p>
-            </div>
-            <div class="block">
-              <h5>Example</h5>
-              <pre><code>body {
-  font-family: Arial, sans-serif;
-  line-height: 1.6;
-}
-
-h1 {
-  font-size: 3rem;
-  font-weight: 700;
-}</code></pre>
-            </div>
-          </div>
-        </div>
-
-        <div class="card searchable" data-search="text-decoration transform text-align">
-          <div class="card-top">
-            <span class="priority yellow">Important</span>
-            <span class="usage mid">Mid Use</span>
-            <h4>10. Text Control</h4>
-            <div class="mini">text-decoration, transform, align</div>
-          </div>
-          <div class="card-body">
-            <div class="block">
-              <h5>Detailed Essential Note</h5>
-              <p>
-                Text presentation আরও clean করতে decoration remove, uppercase transform, alignment change ইত্যাদি use হয়।
-              </p>
-            </div>
-            <div class="block">
-              <h5>When / Where to Use</h5>
-              <p>
-                Nav links, headings, button text, card titles, centered section content-এ useful।
-              </p>
-            </div>
-            <div class="block">
-              <h5>Pro Tip / Common Mistake</h5>
-              <p>
-                সব text uppercase করলে readability কমে যেতে পারে। প্রয়োজন অনুযায়ী use করো।
-              </p>
-            </div>
-            <div class="block">
-              <h5>Example</h5>
-              <pre><code>a { text-decoration: none; }
-h2 { text-transform: uppercase; }</code></pre>
-            </div>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <section class="section" id="display">
-      <div class="section-head">
-        <h3>Display & Visibility</h3>
-        <span class="badge essential">Must Master</span>
-      </div>
-      <div class="grid">
-        <div class="card searchable" data-search="display block inline inline-block none">
-          <div class="card-top">
-            <span class="priority red">Highest Priority</span>
-            <span class="usage most">Most Used</span>
-            <h4>11. Display Basics</h4>
-            <div class="mini">block, inline, inline-block, none</div>
-          </div>
-          <div class="card-body">
-            <div class="block">
-              <h5>Detailed Essential Note</h5>
-              <p>
-                Element layout-এ কীভাবে behave করবে তা display property control করে।
-                Block full width নেয়, inline content-width নেয়, inline-block mix behavior দেয়।
-              </p>
-            </div>
-            <div class="block">
-              <h5>When / Where to Use</h5>
-              <p>
-                Buttons, hidden content, menu items, card alignment—এসব জায়গায় display খুব common।
-              </p>
-            </div>
-            <div class="block">
-              <h5>Pro Tip / Common Mistake</h5>
-              <p>
-                শুধু element hide করার জন্য display:none use করলে space-ও disappear হয়। এটা intentional কিনা বুঝে use করো।
-              </p>
-            </div>
-            <div class="block">
-              <h5>Example</h5>
-              <pre><code>.btn { display: inline-block; }
-.hidden { display: none; }</code></pre>
-            </div>
-          </div>
-        </div>
-
-        <div class="card searchable" data-search="overflow hidden scroll text-overflow ellipsis">
-          <div class="card-top">
-            <span class="priority yellow">Important</span>
-            <span class="usage mid">Mid Use</span>
-            <h4>12. Overflow Handling</h4>
-            <div class="mini">overflow, ellipsis</div>
-          </div>
-          <div class="card-body">
-            <div class="block">
-              <h5>Detailed Essential Note</h5>
-              <p>
-                Container-এর content বেশি হলে overflow control করে visible থাকবে, hide হবে, নাকি scroll হবে।
-              </p>
-            </div>
-            <div class="block">
-              <h5>When / Where to Use</h5>
-              <p>
-                Long title, modal content, fixed height card, code container, table wrapper-এ useful।
-              </p>
-            </div>
-            <div class="block">
-              <h5>Pro Tip / Common Mistake</h5>
-              <p>
-                text-overflow: ellipsis use করতে white-space এবং overflow rule-ও properly set করতে হয়।
-              </p>
-            </div>
-            <div class="block">
-              <h5>Example</h5>
-              <pre><code>.title {
-  white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis;
-}</code></pre>
-            </div>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <section class="section" id="position">
-      <div class="section-head">
-        <h3>Positioning</h3>
-        <span class="badge essential">Must Master</span>
-      </div>
-      <div class="grid">
-        <div class="card searchable" data-search="relative absolute fixed sticky position">
-          <div class="card-top">
-            <span class="priority red">Highest Priority</span>
-            <span class="usage most">Most Used</span>
-            <h4>13. Position Property</h4>
-            <div class="mini">relative, absolute, fixed, sticky</div>
-          </div>
-          <div class="card-body">
-            <div class="block">
-              <h5>Detailed Essential Note</h5>
-              <p>
-                Position property document flow-এর বাইরে বা ভেতরে element-এর exact placement control করতে সাহায্য করে।
-              </p>
-            </div>
-            <div class="block">
-              <h5>When / Where to Use</h5>
-              <p>
-                Badge, overlay, sticky navbar, floating button, tooltip positioning-এ use হয়।
-              </p>
-            </div>
-            <div class="block">
-              <h5>Pro Tip / Common Mistake</h5>
-              <p>
-                Absolute element সঠিকভাবে কাজ করাতে parent-এ অনেক সময় relative দিতে হয়।
-              </p>
-            </div>
-            <div class="block">
-              <h5>Example</h5>
-              <pre><code>.parent { position: relative; }
-.badge {
-  position: absolute;
-  top: 10px;
-  right: 10px;
-}</code></pre>
-            </div>
-          </div>
-        </div>
-
-        <div class="card searchable" data-search="z-index layering modal dropdown">
-          <div class="card-top">
-            <span class="priority yellow">Very Important</span>
-            <span class="usage mid">Mid Use</span>
-            <h4>14. Z-Index & Layering</h4>
-            <div class="mini">stack order</div>
-          </div>
-          <div class="card-body">
-            <div class="block">
-              <h5>Detailed Essential Note</h5>
-              <p>
-                Multiple overlapping element-এর মধ্যে কোনটা সামনে থাকবে, সেটা z-index control করে।
-              </p>
-            </div>
-            <div class="block">
-              <h5>When / Where to Use</h5>
-              <p>
-                Modal, dropdown, tooltip, sticky nav, overlay element-এ use হয়।
-              </p>
-            </div>
-            <div class="block">
-              <h5>Pro Tip / Common Mistake</h5>
-              <p>
-                z-index কাজ না করলে first position context check করো।
-              </p>
-            </div>
-            <div class="block">
-              <h5>Example</h5>
-              <pre><code>.modal {
-  position: fixed;
-  z-index: 1000;
-}</code></pre>
-            </div>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <section class="section" id="flexbox">
-      <div class="section-head">
-        <h3>Flexbox</h3>
-        <span class="badge essential">Must Master</span>
-      </div>
-      <div class="grid">
-        <div class="card searchable" data-search="display flex justify-content align-items gap">
-          <div class="card-top">
-            <span class="priority red">Highest Priority</span>
-            <span class="usage most">Most Used</span>
-            <h4>15. Flex Container</h4>
-            <div class="mini">justify-content, align-items, gap</div>
-          </div>
-          <div class="card-body">
-            <div class="block">
-              <h5>Detailed Essential Note</h5>
-              <p>
-                Flexbox row বা column direction-এ items align, center, distribute করা খুব সহজ করে দেয়।
-              </p>
-            </div>
-            <div class="block">
-              <h5>When / Where to Use</h5>
-              <p>
-                Navbar, button group, cards row, hero split layout — সবখানে flexbox খুব common।
-              </p>
-            </div>
-            <div class="block">
-              <h5>Pro Tip / Common Mistake</h5>
-              <p>
-                Main axis আর cross axis concept clear রাখো, নাহলে justify-content আর align-items confuse হবে।
-              </p>
-            </div>
-            <div class="block">
-              <h5>Example</h5>
-              <pre><code>.nav {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  gap: 16px;
-}</code></pre>
-            </div>
-          </div>
-        </div>
-
-        <div class="card searchable" data-search="flex grow shrink basis order">
-          <div class="card-top">
-            <span class="priority yellow">Very Important</span>
-            <span class="usage mid">Mid Use</span>
-            <h4>16. Flex Item Control</h4>
-            <div class="mini">flex-grow, basis, order</div>
-          </div>
-          <div class="card-body">
-            <div class="block">
-              <h5>Detailed Essential Note</h5>
-              <p>
-                Flex item property দিয়ে child item-দের individual behavior control করা যায়।
-              </p>
-            </div>
-            <div class="block">
-              <h5>When / Where to Use</h5>
-              <p>
-                Featured card বড় করা, specific item আগে আনা, available space distribute করা—এসব ক্ষেত্রে useful।
-              </p>
-            </div>
-            <div class="block">
-              <h5>Pro Tip / Common Mistake</h5>
-              <p>
-                Flex-grow use করার সময় parent width এবং gap-এর effect মাথায় রাখো।
-              </p>
-            </div>
-            <div class="block">
-              <h5>Example</h5>
-              <pre><code>.item { flex: 1; }
-.featured { order: -1; }</code></pre>
-            </div>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <section class="section" id="grid">
-      <div class="section-head">
-        <h3>Grid</h3>
-        <span class="badge essential">Must Master</span>
-      </div>
-      <div class="grid">
-        <div class="card searchable" data-search="display grid template columns gap">
-          <div class="card-top">
-            <span class="priority red">Highest Priority</span>
-            <span class="usage most">Most Used</span>
-            <h4>17. Grid Basics</h4>
-            <div class="mini">display:grid, columns, gap</div>
-          </div>
-          <div class="card-body">
-            <div class="block">
-              <h5>Detailed Essential Note</h5>
-              <p>
-                Grid row এবং column দুই direction-এ layout build করতে দেয়। Complex card layout-এর জন্য খুব powerful।
-              </p>
-            </div>
-            <div class="block">
-              <h5>When / Where to Use</h5>
-              <p>
-                Gallery, dashboard, pricing section, card layout — grid perfect choice।
-              </p>
-            </div>
-            <div class="block">
-              <h5>Pro Tip / Common Mistake</h5>
-              <p>
-                Simple one-row alignment-এর জন্য grid নয়, flexbox better হতে পারে। Use case অনুযায়ী choose করো।
-              </p>
-            </div>
-            <div class="block">
-              <h5>Example</h5>
-              <pre><code>.grid {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 20px;
-}</code></pre>
-            </div>
-          </div>
-        </div>
-
-        <div class="card searchable" data-search="grid column row span area">
-          <div class="card-top">
-            <span class="priority yellow">Important</span>
-            <span class="usage mid">Mid Use</span>
-            <h4>18. Advanced Grid Placement</h4>
-            <div class="mini">grid-column, grid-row, span</div>
-          </div>
-          <div class="card-body">
-            <div class="block">
-              <h5>Detailed Essential Note</h5>
-              <p>
-                Specific grid item-কে বড়, wide, tall, বা custom area-তে place করতে advanced grid placement use হয়।
-              </p>
-            </div>
-            <div class="block">
-              <h5>When / Where to Use</h5>
-              <p>
-                Featured card, asymmetrical layout, magazine UI, dashboard widget layout-এ useful।
-              </p>
-            </div>
-            <div class="block">
-              <h5>Pro Tip / Common Mistake</h5>
-              <p>
-                Grid placement use করার আগে base grid structure clear করো, না হলে item overlap হতে পারে।
-              </p>
-            </div>
-            <div class="block">
-              <h5>Example</h5>
-              <pre><code>.featured {
-  grid-column: span 2;
-}</code></pre>
-            </div>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <section class="section" id="responsive">
-      <div class="section-head">
-        <h3>Responsive Design</h3>
-        <span class="badge essential">Must Master</span>
-      </div>
-      <div class="grid">
-        <div class="card searchable" data-search="media query responsive mobile first">
-          <div class="card-top">
-            <span class="priority red">Highest Priority</span>
-            <span class="usage most">Most Used</span>
-            <h4>19. Media Queries</h4>
-            <div class="mini">@media, breakpoints</div>
-          </div>
-          <div class="card-body">
-            <div class="block">
-              <h5>Detailed Essential Note</h5>
-              <p>
-                Media query screen size অনুযায়ী CSS change করতে দেয়, যাতে design mobile, tablet, desktop সবখানে usable থাকে।
-              </p>
-            </div>
-            <div class="block">
-              <h5>When / Where to Use</h5>
-              <p>
-                Grid collapse, font resize, nav stack, section spacing adjust—এসব responsive change-এ use হয়।
-              </p>
-            </div>
-            <div class="block">
-              <h5>Pro Tip / Common Mistake</h5>
-              <p>
-                Desktop-first না mobile-first—একটা consistent approach follow করো।
-              </p>
-            </div>
-            <div class="block">
-              <h5>Example</h5>
-              <pre><code>@media (max-width: 768px) {
-  .grid {
-    grid-template-columns: 1fr;
-  }
-}</code></pre>
-            </div>
-          </div>
-        </div>
-
-        <div class="card searchable" data-search="fluid layout max-width responsive images">
-          <div class="card-top">
-            <span class="priority red">Highest Priority</span>
-            <span class="usage most">Most Used</span>
-            <h4>20. Fluid Layout Principles</h4>
-            <div class="mini">max-width, width:100%, responsive images</div>
-          </div>
-          <div class="card-body">
-            <div class="block">
-              <h5>Detailed Essential Note</h5>
-              <p>
-                Responsive layout মানে শুধু media query না, বরং content naturally adapt করাও important।
-                এজন্য fluid container আর responsive image দরকার।
-              </p>
-            </div>
-            <div class="block">
-              <h5>When / Where to Use</h5>
-              <p>
-                সব modern responsive page-এই max-width container এবং responsive image use করা উচিত।
-              </p>
-            </div>
-            <div class="block">
-              <h5>Pro Tip / Common Mistake</h5>
-              <p>
-                Fixed width image use করলে mobile-এ overflow হয়। max-width:100% habit করো।
-              </p>
-            </div>
-            <div class="block">
-              <h5>Example</h5>
-              <pre><code>img {
-  max-width: 100%;
-  height: auto;
-}
-
-.container {
-  width: 90%;
-  max-width: 1200px;
-}</code></pre>
-            </div>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <section class="section" id="backgrounds">
-      <div class="section-head">
-        <h3>Backgrounds & Borders</h3>
-        <span class="badge important">Important</span>
-      </div>
-      <div class="grid">
-        <div class="card searchable" data-search="background gradient image color">
-          <div class="card-top">
-            <span class="priority yellow">Important</span>
-            <span class="usage most">Most Used</span>
-            <h4>21. Background Styling</h4>
-            <div class="mini">color, image, gradient</div>
-          </div>
-          <div class="card-body">
-            <div class="block"><h5>Detailed Essential Note</h5><p>Background section hierarchy, hero emphasis, and overall visual appeal improve করতে সাহায্য করে।</p></div>
-            <div class="block"><h5>When / Where to Use</h5><p>Hero section, cards, CTA section, full page wrapper—সবখানে use হয়।</p></div>
-            <div class="block"><h5>Pro Tip / Common Mistake</h5><p>Too many gradients বা loud background use করলে readability কমে যেতে পারে।</p></div>
-            <div class="block"><h5>Example</h5><pre><code>.hero {
-  background: linear-gradient(135deg, #eff6ff, #dbeafe);
-}</code></pre></div>
-          </div>
-        </div>
-
-        <div class="card searchable" data-search="border radius outline">
-          <div class="card-top">
-            <span class="priority yellow">Important</span>
-            <span class="usage most">Most Used</span>
-            <h4>22. Border & Radius</h4>
-            <div class="mini">border, border-radius, outline</div>
-          </div>
-          <div class="card-body">
-            <div class="block"><h5>Detailed Essential Note</h5><p>Border edges visible করে, radius modern rounded look দেয়, outline focus indication-এ useful।</p></div>
-            <div class="block"><h5>When / Where to Use</h5><p>Cards, buttons, forms, images, badges—সবখানে common।</p></div>
-            <div class="block"><h5>Pro Tip / Common Mistake</h5><p>Outline remove করলে accessible alternative focus style দাও।</p></div>
-            <div class="block"><h5>Example</h5><pre><code>.card {
-  border: 1px solid #e2e8f0;
-  border-radius: 16px;
-}</code></pre></div>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <section class="section" id="effects">
-      <div class="section-head">
-        <h3>Effects & Shadows</h3>
-        <span class="badge important">Important</span>
-      </div>
-      <div class="grid">
-        <div class="card searchable" data-search="box-shadow opacity text-shadow">
-          <div class="card-top">
-            <span class="priority yellow">Important</span>
-            <span class="usage mid">Mid Use</span>
-            <h4>23. Shadows & Depth</h4>
-            <div class="mini">box-shadow, opacity</div>
-          </div>
-          <div class="card-body">
-            <div class="block"><h5>Detailed Essential Note</h5><p>Box-shadow UI-তে depth এবং visual separation তৈরি করে। Opacity transparency effect দেয়।</p></div>
-            <div class="block"><h5>When / Where to Use</h5><p>Cards, modal, floating panel, buttons hover, image overlay-এ use হয়।</p></div>
-            <div class="block"><h5>Pro Tip / Common Mistake</h5><p>Hard dark shadow use না করে soft subtle shadow ব্যবহার করো।</p></div>
-            <div class="block"><h5>Example</h5><pre><code>.card {
-  box-shadow: 0 10px 25px rgba(0,0,0,.08);
-}</code></pre></div>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <section class="section" id="transform">
-      <div class="section-head">
-        <h3>Transform / Transition / Animation</h3>
-        <span class="badge important">Important</span>
-      </div>
-      <div class="grid">
-        <div class="card searchable" data-search="transform transition hover scale translate">
-          <div class="card-top">
-            <span class="priority yellow">Important</span>
-            <span class="usage most">Most Used</span>
-            <h4>24. Transform + Transition</h4>
-            <div class="mini">hover interactions</div>
-          </div>
-          <div class="card-body">
-            <div class="block"><h5>Detailed Essential Note</h5><p>Transform visual movement দেয়, transition change-কে smooth করে। Together তারা polished interaction তৈরি করে।</p></div>
-            <div class="block"><h5>When / Where to Use</h5><p>Card hover, button hover, image zoom, icon rotate — এসব জায়গায় খুব common।</p></div>
-            <div class="block"><h5>Pro Tip / Common Mistake</h5><p>সবকিছু animate করো না। Only meaningful hover/motion use করো।</p></div>
-            <div class="block"><h5>Example</h5><pre><code>.card {
-  transition: .3s;
-}
-.card:hover {
-  transform: translateY(-6px);
-}</code></pre></div>
-          </div>
-        </div>
-
-        <div class="card searchable" data-search="keyframes animation fade loader">
-          <div class="card-top">
-            <span class="priority green">Good to Know</span>
-            <span class="usage less">Less Use</span>
-            <h4>25. Keyframe Animation</h4>
-            <div class="mini">@keyframes, animation</div>
-          </div>
-          <div class="card-body">
-            <div class="block"><h5>Detailed Essential Note</h5><p>Keyframes multiple animation stage define করতে দেয়। Complex motion-এর জন্য useful।</p></div>
-            <div class="block"><h5>When / Where to Use</h5><p>Loader, floating effect, fade in, pulse animation-এর জন্য use হয়।</p></div>
-            <div class="block"><h5>Pro Tip / Common Mistake</h5><p>Unnecessary animation site slow feel করাতে পারে। subtle use করো।</p></div>
-            <div class="block"><h5>Example</h5><pre><code>@keyframes fadeIn {
-  from { opacity: 0; }
-  to { opacity: 1; }
-}
-
-.box {
-  animation: fadeIn 1s ease;
-}</code></pre></div>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <section class="section" id="forms">
-      <div class="section-head">
-        <h3>Forms & UI Styling</h3>
-        <span class="badge important">Important</span>
-      </div>
-      <div class="grid">
-        <div class="card searchable" data-search="input textarea select button focus forms">
-          <div class="card-top">
-            <span class="priority yellow">Important</span>
-            <span class="usage most">Most Used</span>
-            <h4>26. Form Styling Basics</h4>
-            <div class="mini">input, textarea, button, focus</div>
-          </div>
-          <div class="card-body">
-            <div class="block"><h5>Detailed Essential Note</h5><p>Form usable, readable, and visually clean হওয়া জরুরি। Input spacing, border, focus state—এসব form UX improve করে।</p></div>
-            <div class="block"><h5>When / Where to Use</h5><p>Login form, contact form, signup form, search bar — সব জায়গায়।</p></div>
-            <div class="block"><h5>Pro Tip / Common Mistake</h5><p>Focus outline পুরো remove না করে better custom focus state দাও।</p></div>
-            <div class="block"><h5>Example</h5><pre><code>input {
-  padding: 12px;
-  border: 1px solid #cbd5e1;
-  border-radius: 10px;
-}
-
-input:focus {
-  outline: none;
-  border-color: #2563eb;
-}</code></pre></div>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <div class="footer">
-      CSS Master Dashboard Fixed Balanced Version • Empty Awkward Space Reduced
-    </div>
-  </main>
-</div>
-
-<script>
-  const searchInput = document.getElementById("searchInput");
-  const cards = document.querySelectorAll(".searchable");
-
-  searchInput.addEventListener("input", function () {
-    const value = this.value.toLowerCase().trim();
-    cards.forEach(card => {
-      const text = card.getAttribute("data-search").toLowerCase();
-      if (text.includes(value)) {
-        card.classList.remove("hide");
-      } else {
-        card.classList.add("hide");
+  <script>
+    const sections = [
+      {
+        id: "intro",
+        title: "CSS Basics",
+        subtitle: "CSS কী, কোথায় লিখতে হয়, এবং basic syntax",
+        topics: [
+          {
+            name: "What is CSS",
+            usage: "most",
+            theory: "CSS এর পূর্ণরূপ Cascading Style Sheets। HTML দিয়ে আমরা content তৈরি করি, আর CSS দিয়ে সেই content-এর design, color, spacing, layout, animation ইত্যাদি নিয়ন্ত্রণ করি। অর্থাৎ HTML যদি বাড়ির structure হয়, CSS হলো সেই বাড়ির রং, সাজসজ্জা, distance, font, look and feel। beginner হিসেবে CSS শেখা খুব গুরুত্বপূর্ণ কারণ modern website বানাতে শুধু HTML জানলেই হয় না, দেখতে সুন্দর এবং responsive করতেও CSS লাগে।",
+            example: "p {\n  color: blue;\n  font-size: 18px;\n}"
+          },
+          {
+            name: "CSS Syntax",
+            usage: "most",
+            theory: "CSS syntax খুব simple: selector, property, value। Selector বলে দেয় কোন HTML element-এ style লাগবে। Property বলে কী পরিবর্তন করতে চাও, আর value বলে কেমন হবে। যেমন color: red; মানে text লাল হবে। Beginner দের জন্য syntax ঠিকভাবে শেখা অনেক দরকার, কারণ CSS-এ ছোট ভুল যেমন semicolon না দেওয়া বা curly brace ভুল করা style নষ্ট করে দিতে পারে।",
+            example: "h1 {\n  color: red;\n  background: yellow;\n}"
+          },
+          {
+            name: "Inline, Internal, External CSS",
+            usage: "most",
+            theory: "CSS লেখার ৩টি প্রধান উপায় আছে। Inline CSS সরাসরি HTML tag-এর style attribute-এ লেখা হয়। Internal CSS HTML file-এর head এর মধ্যে style tag-এ লেখা হয়। External CSS আলাদা .css file-এ লেখা হয় এবং link tag দিয়ে connect করা হয়। Real project-এ সবচেয়ে বেশি ব্যবহার হয় External CSS, কারণ এতে code clean থাকে, reuse করা যায়, এবং maintain করা সহজ হয়।",
+            example: "/* External CSS */\n<link rel=\"stylesheet\" href=\"style.css\">\n\n/* style.css */\nbody {\n  margin: 0;\n}"
+          },
+          {
+            name: "Comments in CSS",
+            usage: "mid",
+            theory: "CSS comment ব্যবহার করা হয় code-এর explanation লেখার জন্য। Browser comment render করে না। যখন project বড় হয়, তখন section wise code organise করতে comment অনেক সাহায্য করে। যেমন header section, button styles, responsive styles — এগুলো comment দিয়ে ভাগ করলে code বুঝতে সুবিধা হয়।",
+            example: "/* This is a CSS comment */\n.button {\n  padding: 10px 20px;\n}"
+          },
+          {
+            name: "Cascade, Specificity, Inheritance",
+            usage: "most",
+            theory: "CSS এ একই element-এর জন্য একাধিক style থাকলে কোন style apply হবে তা নির্ধারণ করে cascade, specificity এবং inheritance। Inline style সাধারণত বেশি priority পায়, ID class-এর চেয়ে বেশি specific, আর class element selector-এর চেয়ে বেশি specific। কিছু property যেমন color, font-family parent থেকে child-এ inherit হয়। এই concept না বুঝলে beginner প্রায়ই confuse হয়ে যায় কেন style apply হচ্ছে না।",
+            example: "p { color: blue; }\n.text { color: green; }\n#title { color: red; }\n\n/* id selector সবচেয়ে specific */"
+          }
+        ]
+      },
+      {
+        id: "selectors",
+        title: "Selectors",
+        subtitle: "কোন element-এ style লাগবে তা নির্ধারণ করার নিয়ম",
+        topics: [
+          {
+            name: "Universal Selector (*)",
+            usage: "mid",
+            theory: "Universal selector সব element select করে। এটি সাধারণত reset style বা box-sizing globally set করতে ব্যবহার করা হয়। তবে অতিরিক্ত ব্যবহার performance এবং unintended styling issue তৈরি করতে পারে, তাই বুঝে ব্যবহার করা উচিত।",
+            example: "* {\n  margin: 0;\n  padding: 0;\n  box-sizing: border-box;\n}"
+          },
+          {
+            name: "Element Selector",
+            usage: "most",
+            theory: "Element selector সরাসরি HTML tag name দিয়ে element select করে। যেমন p, h1, div। একই tag-এর সব element-এ একই style apply করতে এটি খুব useful। ছোট project বা base styling এর জন্য এটি common।",
+            example: "p {\n  line-height: 1.7;\n}"
+          },
+          {
+            name: "Class Selector",
+            usage: "most",
+            theory: "Class selector সবচেয়ে বেশি ব্যবহৃত selectors-এর একটি। Dot (.) দিয়ে শুরু হয়। একই class একাধিক element-এ ব্যবহার করা যায়, তাই reusable design system তৈরি করতে class খুব গুরুত্বপূর্ণ। যেমন .btn, .card, .container। Modern CSS architecture-এ class selector heavily used।",
+            example: ".card {\n  background: white;\n  padding: 20px;\n  border-radius: 12px;\n}"
+          },
+          {
+            name: "ID Selector",
+            usage: "mid",
+            theory: "ID selector hash (#) দিয়ে শুরু হয় এবং ideally একটি page-এ unique element-এর জন্য ব্যবহার হয়। JavaScript target করার জন্য অনেক সময় useful, কিন্তু styling-এর জন্য class সাধারণত better, কারণ ID specificity বেশি হওয়ায় পরে override করা কঠিন হতে পারে।",
+            example: "#header {\n  background: navy;\n  color: white;\n}"
+          },
+          {
+            name: "Grouping Selector",
+            usage: "most",
+            theory: "একাধিক selector-এ একই style দিতে grouping selector ব্যবহার করা হয়। এতে code short হয় এবং repetition কমে। Beginner দের জন্য DRY (Don't Repeat Yourself) principle apply করতে এটি helpful।",
+            example: "h1, h2, h3 {\n  font-family: Arial, sans-serif;\n}"
+          },
+          {
+            name: "Descendant Selector",
+            usage: "most",
+            theory: "একটি parent-এর ভিতরের child বা nested element select করতে descendant selector ব্যবহার করা হয়। যেমন .menu a মানে menu class-এর ভিতরের সব anchor। Navigation, card content, forms ইত্যাদিতে খুব common।",
+            example: ".menu a {\n  text-decoration: none;\n  color: black;\n}"
+          },
+          {
+            name: "Child Selector (>)",
+            usage: "mid",
+            theory: "Child selector কেবল direct child element select করে। Descendant selector সব nested child select করতে পারে, কিন্তু child selector immediate child target করে। Structure-sensitive styling এর জন্য useful।",
+            example: ".box > p {\n  color: purple;\n}"
+          },
+          {
+            name: "Adjacent Sibling (+)",
+            usage: "mid",
+            theory: "একটি element-এর ঠিক পরের sibling select করতে adjacent sibling selector ব্যবহার হয়। Form label, headings-এর পর paragraph, spacing ইত্যাদিতে helpful।",
+            example: "h2 + p {\n  margin-top: 0;\n}"
+          },
+          {
+            name: "General Sibling (~)",
+            usage: "less",
+            theory: "একটি element-এর পরে থাকা একই level-এর সব sibling select করতে general sibling selector ব্যবহার হয়। কম use হলেও কিছু special layout বা state-based styling এ useful হতে পারে।",
+            example: "h2 ~ p {\n  color: gray;\n}"
+          },
+          {
+            name: "Attribute Selector",
+            usage: "mid",
+            theory: "Attribute selector দিয়ে HTML attribute দেখে style apply করা যায়। যেমন input[type='text'] বা a[target='_blank']। Form styling এবং specific element targeting এর জন্য এটি practical।",
+            example: "input[type=\"text\"] {\n  border: 2px solid teal;\n}"
+          }
+        ]
+      },
+      {
+        id: "colors",
+        title: "Colors & Background",
+        subtitle: "রঙ, background, image, gradient, transparency",
+        topics: [
+          {
+            name: "color",
+            usage: "most",
+            theory: "color property দিয়ে text-এর রঙ নির্ধারণ করা হয়। এটি CSS-এর সবচেয়ে basic এবং সবচেয়ে বেশি ব্যবহৃত property-গুলোর একটি। Hex, rgb, hsl, named color — সব ব্যবহার করা যায়। UI-তে readability বজায় রাখতে text color ও background color এর contrast ঠিক রাখা দরকার।",
+            example: "h1 {\n  color: #7c3aed;\n}"
+          },
+          {
+            name: "background-color",
+            usage: "most",
+            theory: "background-color দিয়ে element-এর পেছনের background রঙ সেট করা হয়। Button, section, card, container, alert box — সব জায়গায় এটি ব্যবহৃত হয়। Pure white background সবসময় ideal না, অনেক সময় slightly off-white ব্যবহার করলে design soft লাগে।",
+            example: ".box {\n  background-color: #f8fafc;\n}"
+          },
+          {
+            name: "background-image",
+            usage: "mid",
+            theory: "background-image দিয়ে element-এর পেছনে image বা gradient দেওয়া হয়। Hero section, banner, card overlay, decorative area ইত্যাদিতে common। Image ব্যবহার করলে size, repeat, position নিয়ন্ত্রণ করাও গুরুত্বপূর্ণ।",
+            example: ".hero {\n  background-image: url('banner.jpg');\n}"
+          },
+          {
+            name: "background-repeat",
+            usage: "mid",
+            theory: "Background image default ভাবে repeat হতে পারে। background-repeat দিয়ে control করা হয় image repeat করবে কি না। Banner বা hero image-এ সাধারণত no-repeat ব্যবহার করা হয়। Pattern background-এ repeat useful।",
+            example: ".hero {\n  background-repeat: no-repeat;\n}"
+          },
+          {
+            name: "background-size",
+            usage: "most",
+            theory: "background-size দিয়ে image element-এ কীভাবে fit হবে তা নিয়ন্ত্রণ করা হয়। cover মানে পুরো area ভরবে, contain মানে পুরো image visible থাকবে। Hero banner এর ক্ষেত্রে cover সবচেয়ে common।",
+            example: ".hero {\n  background-size: cover;\n}"
+          },
+          {
+            name: "background-position",
+            usage: "mid",
+            theory: "Background image কোথায় align হবে তা background-position দিয়ে বলা হয়। center, top, bottom, left, right বা custom values ব্যবহার করা যায়। Responsive hero image control করতে এটি useful।",
+            example: ".hero {\n  background-position: center;\n}"
+          },
+          {
+            name: "background shorthand",
+            usage: "most",
+            theory: "একসাথে background-color, image, repeat, position, size ইত্যাদি shorthand দিয়ে লেখা যায়। এতে code compact হয়। তবে beginner হলে প্রথমে আলাদা properties শিখে পরে shorthand শেখা ভাল।",
+            example: ".hero {\n  background: #111 url('bg.jpg') no-repeat center/cover;\n}"
+          },
+          {
+            name: "opacity",
+            usage: "mid",
+            theory: "opacity দিয়ে element-এর transparency নিয়ন্ত্রণ করা হয়। 1 মানে পুরো visible, 0 মানে invisible। তবে মনে রাখতে হবে opacity পুরো element ও তার content-এর উপর apply হয়। শুধু background transparent করতে rgba বা hsla বেশি useful।",
+            example: ".overlay {\n  opacity: 0.8;\n}"
+          },
+          {
+            name: "linear-gradient",
+            usage: "most",
+            theory: "CSS gradient দিয়ে image ছাড়াই সুন্দর background তৈরি করা যায়। linear-gradient একদিকে এক বা একাধিক রঙ blend করে। Modern UI design-এ card, button, hero background-এ gradient খুব জনপ্রিয়।",
+            example: ".banner {\n  background: linear-gradient(90deg, #7c3aed, #06b6d4);\n}"
+          },
+          {
+            name: "radial-gradient",
+            usage: "less",
+            theory: "radial-gradient center থেকে বাইরের দিকে circular বা elliptical ভাবে color spread করে। Decorative background, glowing effect বা creative UI-তে ব্যবহার হয়। সাধারণ layout-এ কম use হলেও visual enhancement-এর জন্য useful।",
+            example: ".glow {\n  background: radial-gradient(circle, #fff, #7c3aed);\n}"
+          }
+        ]
+      },
+      {
+        id: "text",
+        title: "Text & Font",
+        subtitle: "লেখা, ফন্ট, spacing, alignment, decoration",
+        topics: [
+          {
+            name: "font-family",
+            usage: "most",
+            theory: "font-family দিয়ে text কোন font-এ দেখাবে তা নির্ধারণ করা হয়। Website-এর tone, readability এবং brand feel অনেকটাই font-এর উপর depend করে। সাধারণত primary font-এর সাথে fallback font দেওয়া উচিত।",
+            example: "body {\n  font-family: Arial, sans-serif;\n}"
+          },
+          {
+            name: "font-size",
+            usage: "most",
+            theory: "font-size দিয়ে text এর আকার নিয়ন্ত্রণ করা হয়। px, rem, em, %, vw ইত্যাদি unit ব্যবহার করা যায়। Responsive typography-এর জন্য rem অনেক জনপ্রিয় কারণ এটি root font-size এর উপর নির্ভর করে।",
+            example: "p {\n  font-size: 18px;\n}"
+          },
+          {
+            name: "font-weight",
+            usage: "most",
+            theory: "font-weight দিয়ে text কতটা bold হবে তা নির্ধারণ করা হয়। normal, bold, 400, 500, 700 ইত্যাদি মান ব্যবহার করা যায়। Heading, button text, important UI labels-এ এটি খুব common।",
+            example: "h2 {\n  font-weight: 700;\n}"
+          },
+          {
+            name: "font-style",
+            usage: "mid",
+            theory: "font-style দিয়ে italic বা normal style নিয়ন্ত্রণ করা হয়। Emphasis, quotes, special note ইত্যাদিতে italic useful হতে পারে। তবে অতিরিক্ত italic readability কমাতে পারে।",
+            example: "em {\n  font-style: italic;\n}"
+          },
+          {
+            name: "line-height",
+            usage: "most",
+            theory: "line-height text line-এর vertical spacing নিয়ন্ত্রণ করে। বড় paragraph readable করতে এটি খুব গুরুত্বপূর্ণ। Too small line-height হলে text গাদাগাদি লাগে, too large হলে loosely spaced মনে হয়। সাধারণ paragraph এর জন্য 1.5 থেকে 1.8 ভালো।",
+            example: "p {\n  line-height: 1.7;\n}"
+          },
+          {
+            name: "letter-spacing",
+            usage: "mid",
+            theory: "letter-spacing দিয়ে অক্ষরগুলোর মাঝে দূরত্ব নিয়ন্ত্রণ করা হয়। Heading, logo-like text বা uppercase menu item-এ এটি useful। Body text-এ বেশি letter-spacing দিলে readability কমে যেতে পারে।",
+            example: "h1 {\n  letter-spacing: 1px;\n}"
+          },
+          {
+            name: "word-spacing",
+            usage: "less",
+            theory: "word-spacing দিয়ে শব্দগুলোর মাঝে দূরত্ব পরিবর্তন করা হয়। খুব কম use হয়, কিন্তু কিছু design-specific typography style-এ helpful হতে পারে।",
+            example: "p {\n  word-spacing: 4px;\n}"
+          },
+          {
+            name: "text-align",
+            usage: "most",
+            theory: "text-align দিয়ে text left, center, right বা justify align করা যায়। Button text, hero title, paragraph, table cell, card content — অনেক জায়গায় লাগে। LTR language-এ default left, তবে centered headings common।",
+            example: ".title {\n  text-align: center;\n}"
+          },
+          {
+            name: "text-decoration",
+            usage: "most",
+            theory: "text-decoration দিয়ে underline, overline, line-through ইত্যাদি নিয়ন্ত্রণ করা হয়। Link-এর default underline remove করতে এটি খুব common। তবে accessibility-এর জন্য link style সম্পূর্ণ hide না করে alternative indication রাখা ভাল।",
+            example: "a {\n  text-decoration: none;\n}"
+          },
+          {
+            name: "text-transform",
+            usage: "mid",
+            theory: "text-transform দিয়ে uppercase, lowercase, capitalize করা যায়। Menu item, button text, labels, badges-এ common। কিন্তু পুরো paragraph uppercase করলে readability কমে যায়।",
+            example: ".badge {\n  text-transform: uppercase;\n}"
+          },
+          {
+            name: "text-shadow",
+            usage: "mid",
+            theory: "text-shadow দিয়ে text-এর পেছনে shadow effect যোগ করা যায়। Hero title, glowing heading বা special UI element-এ ব্যবহার হয়। Overuse করলে messy লাগতে পারে।",
+            example: "h1 {\n  text-shadow: 2px 2px 8px rgba(0,0,0,.3);\n}"
+          },
+          {
+            name: "white-space",
+            usage: "mid",
+            theory: "white-space দিয়ে text wrap হবে কিনা এবং spaces/new lines preserve হবে কিনা তা নির্ধারণ করা হয়। Code block, badge, nowrap menu item, preformatted text এ useful।",
+            example: ".label {\n  white-space: nowrap;\n}"
+          },
+          {
+            name: "overflow-wrap / word-break",
+            usage: "mid",
+            theory: "দীর্ঘ URL বা break না হওয়া long word layout ভেঙে দিতে পারে। overflow-wrap বা word-break ব্যবহার করে text line break করানো যায়। Responsive card UI-তে এটি useful।",
+            example: ".content {\n  overflow-wrap: break-word;\n}"
+          }
+        ]
+      },
+      {
+        id: "boxmodel",
+        title: "Box Model",
+        subtitle: "content, padding, border, margin, outline",
+        topics: [
+          {
+            name: "width & height",
+            usage: "most",
+            theory: "width এবং height দিয়ে element-এর basic dimension ঠিক করা হয়। সব element-এ fixed width/height না দিয়ে অনেক সময় max-width, min-height, auto ইত্যাদি better choice হয়। Responsive design-এ width: 100% common।",
+            example: ".box {\n  width: 300px;\n  height: 150px;\n}"
+          },
+          {
+            name: "padding",
+            usage: "most",
+            theory: "Padding হলো content আর border-এর মাঝে ভেতরের space। Card, button, input, section — সব জায়গায় padding লাগে। Padding content-কে breathe করার জায়গা দেয় এবং UI clean দেখায়।",
+            example: ".card {\n  padding: 20px;\n}"
+          },
+          {
+            name: "margin",
+            usage: "most",
+            theory: "Margin হলো element-এর বাইরের space। এক element থেকে আরেক element-এর দূরত্ব দিতে margin ব্যবহার করা হয়। Vertical rhythm maintain করতে margin important।",
+            example: ".section {\n  margin-bottom: 30px;\n}"
+          },
+          {
+            name: "border",
+            usage: "most",
+            theory: "border দিয়ে element-এর চারপাশে line যোগ করা হয়। এর width, style, color set করা যায়। Form input, card, badge, divider, image frame ইত্যাদিতে common।",
+            example: ".input {\n  border: 1px solid #cbd5e1;\n}"
+          },
+          {
+            name: "border-radius",
+            usage: "most",
+            theory: "border-radius দিয়ে element-এর কোণা গোল করা হয়। Modern UI design-এ rounded corners খুব জনপ্রিয়। Button, card, input, avatar, image — প্রায় সব জায়গায় এর ব্যবহার আছে।",
+            example: ".btn {\n  border-radius: 12px;\n}"
+          },
+          {
+            name: "outline",
+            usage: "mid",
+            theory: "outline border-এর মতো হলেও box model space নেয় না। Accessibility-এর জন্য focus state-এ outline খুব গুরুত্বপূর্ণ। অনেক beginner outline remove করে দেয়, কিন্তু তা keyboard users-এর জন্য সমস্যা তৈরি করে।",
+            example: "input:focus {\n  outline: 2px solid blue;\n}"
+          },
+          {
+            name: "box-sizing",
+            usage: "most",
+            theory: "box-sizing: border-box দিলে width/height এর মধ্যে padding এবং border count হয়। Modern CSS এ প্রায় সব project-এ global reset হিসেবে এটি ব্যবহার করা হয় কারণ layout calculation সহজ হয়।",
+            example: "* {\n  box-sizing: border-box;\n}"
+          },
+          {
+            name: "overflow",
+            usage: "most",
+            theory: "content element-এর বাইরে চলে গেলে overflow property দিয়ে control করা হয়। visible, hidden, scroll, auto ব্যবহার করা যায়। Scrollable card, clipped image, modal body তে useful।",
+            example: ".scroll-box {\n  height: 100px;\n  overflow: auto;\n}"
+          }
+        ]
+      },
+      {
+        id: "sizing",
+        title: "Sizing",
+        subtitle: "min/max size, units, responsive sizing",
+        topics: [
+          {
+            name: "min-width / max-width",
+            usage: "most",
+            theory: "Responsive layout এ fixed width-এর চেয়ে max-width অনেক বেশি useful। Container কে বড় screen এ সীমাবদ্ধ রাখতে max-width ব্যবহার করা হয়। min-width কিছু specific layout behavior control করতে কাজে লাগে।",
+            example: ".container {\n  width: 100%;\n  max-width: 1200px;\n}"
+          },
+          {
+            name: "min-height / max-height",
+            usage: "mid",
+            theory: "Section বা card যেন কমপক্ষে একটি minimum height ধরে রাখে, তার জন্য min-height ব্যবহার হয়। Hero section বা full screen layout-এ খুব common। max-height scrollable area তৈরিতে useful।",
+            example: ".hero {\n  min-height: 100vh;\n}"
+          },
+          {
+            name: "CSS Units: px, %, em, rem, vw, vh",
+            usage: "most",
+            theory: "CSS units বুঝা খুব জরুরি। px fixed unit, % parent-এর উপর নির্ভরশীল, em relative, rem root font-size relative, vw/vh viewport relative। Beginner হিসেবে rem, %, vh/vw কোথায় ব্যবহার করতে হয় তা জানলে responsive design সহজ হয়।",
+            example: "h1 { font-size: 2rem; }\n.box { width: 80%; }\n.hero { min-height: 100vh; }"
+          }
+        ]
+      },
+      {
+        id: "display",
+        title: "Display & Position",
+        subtitle: "display type, visibility, positioning system",
+        topics: [
+          {
+            name: "display: block / inline / inline-block / none",
+            usage: "most",
+            theory: "display property element-এর behavior ঠিক করে। block পুরো line নেয়, inline content যতটুকু লাগে ততটুকু নেয়, inline-block inline থাকে কিন্তু width/height নেয়, none element hide করে। CSS layout বুঝতে display fundamental।",
+            example: ".box {\n  display: inline-block;\n}"
+          },
+          {
+            name: "visibility",
+            usage: "mid",
+            theory: "visibility: hidden দিলে element invisible হয় কিন্তু layout space রেখে দেয়। display:none space-ও remove করে। এই পার্থক্য UI state management বুঝতে সাহায্য করে।",
+            example: ".hide {\n  visibility: hidden;\n}"
+          },
+          {
+            name: "position: static",
+            usage: "less",
+            theory: "Static হলো default position behavior। সাধারণ flow অনুযায়ী element বসে। এটি খুব কম manually use হয়, কিন্তু positioning system বুঝতে base concept।",
+            example: ".box {\n  position: static;\n}"
+          },
+          {
+            name: "position: relative",
+            usage: "most",
+            theory: "Relative position দিলে element normal flow-এ থাকে কিন্তু top, left, right, bottom দিয়ে নিজ অবস্থান থেকে সরানো যায়। এছাড়া absolute child-এর positioning context হিসেবে parent-এ relative দেওয়া খুব common।",
+            example: ".parent {\n  position: relative;\n}"
+          },
+          {
+            name: "position: absolute",
+            usage: "most",
+            theory: "Absolute positioned element normal document flow থেকে বের হয়ে যায় এবং nearest positioned ancestor-এর relative-এ বসে। Badge, icon overlay, dropdown, tooltip, decorative shapes ইত্যাদিতে খুব common।",
+            example: ".badge {\n  position: absolute;\n  top: 10px;\n  right: 10px;\n}"
+          },
+          {
+            name: "position: fixed",
+            usage: "mid",
+            theory: "Fixed element viewport অনুযায়ী স্থির থাকে। Sticky navbar, floating action button, chat icon ইত্যাদিতে ব্যবহার হয়। Scroll করলেও এটি একই জায়গায় থাকে।",
+            example: ".chat-btn {\n  position: fixed;\n  bottom: 20px;\n  right: 20px;\n}"
+          },
+          {
+            name: "position: sticky",
+            usage: "mid",
+            theory: "Sticky element scroll করার সময় একটি threshold পর্যন্ত normal থাকে, তারপর viewport এ stuck হয়। Table header, sidebar, section nav-এ useful।",
+            example: ".nav {\n  position: sticky;\n  top: 0;\n}"
+          },
+          {
+            name: "z-index",
+            usage: "most",
+            theory: "Overlapping element-এর stacking order z-index দিয়ে control করা হয়। Modal, dropdown, tooltip, fixed navbar, overlay ইত্যাদিতে এটি common। কিন্তু z-index কাজ করতে সাধারণত positioned element প্রয়োজন হয়।",
+            example: ".modal {\n  position: fixed;\n  z-index: 999;\n}"
+          },
+          {
+            name: "float & clear",
+            usage: "less",
+            theory: "আগে image wrapping এবং layout-এ float খুব use হতো। Modern CSS-এ flexbox ও grid আসার পর layout-এর জন্য float কমে গেছে, কিন্তু legacy project বা image wrap-এ এখনও দেখা যায়।",
+            example: "img {\n  float: left;\n  margin-right: 12px;\n}"
+          }
+        ]
+      },
+      {
+        id: "flexbox",
+        title: "Flexbox",
+        subtitle: "one-dimensional layout system",
+        topics: [
+          {
+            name: "display: flex",
+            usage: "most",
+            theory: "Flexbox modern CSS-এর সবচেয়ে useful layout system-এর একটি। এক row বা এক column-এ item arrange করতে এটি দারুণ কাজ করে। Navbar, card row, button group, center alignment — অসংখ্য use case আছে।",
+            example: ".container {\n  display: flex;\n}"
+          },
+          {
+            name: "flex-direction",
+            usage: "most",
+            theory: "Item row-এ থাকবে নাকি column-এ থাকবে তা flex-direction দিয়ে set করা হয়। row default, column vertical layout-এর জন্য useful। Mobile responsive design-এ media query-র সাথে direction change করা common।",
+            example: ".container {\n  display: flex;\n  flex-direction: column;\n}"
+          },
+          {
+            name: "justify-content",
+            usage: "most",
+            theory: "Main axis বরাবর item alignment করতে justify-content ব্যবহার হয়। center, space-between, space-around, space-evenly খুব common। Navigation menu এবং card action area-তে এটি বেশি লাগে।",
+            example: ".container {\n  display: flex;\n  justify-content: space-between;\n}"
+          },
+          {
+            name: "align-items",
+            usage: "most",
+            theory: "Cross axis বরাবর items align করতে align-items ব্যবহার হয়। Vertical centering-এর জন্য flexbox + align-items + justify-content combo খুব famous।",
+            example: ".container {\n  display: flex;\n  align-items: center;\n}"
+          },
+          {
+            name: "flex-wrap",
+            usage: "most",
+            theory: "Container ছোট হলে items next line-এ যাবে কি না তা flex-wrap দিয়ে নির্ধারণ হয়। Responsive card grid-এর মতো layout-এ wrap খুব useful। না দিলে item shrink হয়ে অদ্ভুত হয়ে যেতে পারে।",
+            example: ".container {\n  display: flex;\n  flex-wrap: wrap;\n}"
+          },
+          {
+            name: "gap in flex",
+            usage: "most",
+            theory: "আগে flex items-এর মাঝে space দিতে margin ব্যবহার করা হতো, এখন gap property অনেক clean solution। Row ও column উভয় direction-এর spacing সহজে control করা যায়।",
+            example: ".container {\n  display: flex;\n  gap: 16px;\n}"
+          },
+          {
+            name: "flex-grow / flex-shrink / flex-basis",
+            usage: "mid",
+            theory: "এই properties item available space কীভাবে নেবে তা control করে। Complex responsive layout-এ useful। flex shorthand দিয়েও এগুলো লেখা যায়। Beginner হলে আগে grow এবং basis বুঝলেই অনেকটা clear হবে।",
+            example: ".item {\n  flex: 1;\n}"
+          },
+          {
+            name: "align-self",
+            usage: "mid",
+            theory: "সাধারণ align-items সব child-এর জন্য কাজ করে, কিন্তু কোনো একটি specific item আলাদা align করতে align-self ব্যবহার করা হয়। Special card, button বা badge positioning-এ useful।",
+            example: ".special {\n  align-self: flex-end;\n}"
+          }
+        ]
+      },
+      {
+        id: "grid",
+        title: "Grid",
+        subtitle: "two-dimensional layout system",
+        topics: [
+          {
+            name: "display: grid",
+            usage: "most",
+            theory: "CSS Grid হলো row এবং column দুই দিকেই layout control করার modern powerful system। Dashboard, gallery, card layout, page structure-এ এটি দারুণ useful। Flexbox যেখানে one-dimensional, grid সেখানে two-dimensional।",
+            example: ".grid {\n  display: grid;\n}"
+          },
+          {
+            name: "grid-template-columns",
+            usage: "most",
+            theory: "কতগুলো column থাকবে এবং তাদের width কী হবে তা grid-template-columns দিয়ে ঠিক করা হয়। repeat(), 1fr, minmax() ইত্যাদি modern responsive layout-এ খুব popular।",
+            example: ".grid {\n  display: grid;\n  grid-template-columns: repeat(3, 1fr);\n}"
+          },
+          {
+            name: "grid-template-rows",
+            usage: "mid",
+            theory: "Row structure control করতে grid-template-rows ব্যবহার করা হয়। Card, dashboard block, fixed area layout ইত্যাদিতে useful।",
+            example: ".grid {\n  grid-template-rows: auto 1fr auto;\n}"
+          },
+          {
+            name: "gap in grid",
+            usage: "most",
+            theory: "Grid items-এর মাঝে spacing দিতে gap ব্যবহার করা হয়। এটি margin-এর তুলনায় cleaner এবং easier। Responsive card layout-এ খুব common।",
+            example: ".grid {\n  display: grid;\n  gap: 20px;\n}"
+          },
+          {
+            name: "grid-column / grid-row",
+            usage: "mid",
+            theory: "কোন item কত column বা row span করবে তা grid-column বা grid-row দিয়ে বলা যায়। Feature card, hero block, asymmetric layout-এ useful।",
+            example: ".item-large {\n  grid-column: span 2;\n}"
+          },
+          {
+            name: "repeat(), minmax(), fr unit",
+            usage: "most",
+            theory: "Modern grid responsive করার জন্য repeat(), minmax() এবং fr unit খুব powerful। Auto-fit/auto-fill এর সাথে minmax() use করলে media query ছাড়াও flexible grid পাওয়া যায়।",
+            example: ".grid {\n  display: grid;\n  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));\n}"
+          },
+          {
+            name: "place-items / place-content",
+            usage: "mid",
+            theory: "Grid alignment shorthand হিসেবে place-items এবং place-content ব্যবহার হয়। Centering-এর জন্য এগুলো ছোট ও clean syntax দেয়।",
+            example: ".box {\n  display: grid;\n  place-items: center;\n}"
+          }
+        ]
+      },
+      {
+        id: "list-table",
+        title: "List & Table",
+        subtitle: "list style, table formatting",
+        topics: [
+          {
+            name: "list-style-type / list-style",
+            usage: "mid",
+            theory: "Ordered বা unordered list-এর marker style change করতে list-style-type ব্যবহার হয়। Navigation menu বানানোর সময় list marker remove করা খুব common।",
+            example: "ul {\n  list-style: none;\n}"
+          },
+          {
+            name: "table styling",
+            usage: "mid",
+            theory: "Table style করতে border-collapse, padding, text-align, zebra striping ইত্যাদি ব্যবহার হয়। Admin dashboard বা data display-এ table formatting গুরুত্বপূর্ণ।",
+            example: "table {\n  width: 100%;\n  border-collapse: collapse;\n}\nth, td {\n  border: 1px solid #ddd;\n  padding: 10px;\n}"
+          }
+        ]
+      },
+      {
+        id: "responsive",
+        title: "Responsive Design",
+        subtitle: "mobile-first, media query, fluid layouts",
+        topics: [
+          {
+            name: "Media Query",
+            usage: "most",
+            theory: "Media query দিয়ে screen size বা device feature অনুযায়ী CSS change করা যায়। Responsive web design-এর backbone এটি। Mobile, tablet, desktop—প্রতিটিতে UI ঠিকভাবে দেখানোর জন্য media query অত্যন্ত গুরুত্বপূর্ণ।",
+            example: "@media (max-width: 768px) {\n  .grid {\n    grid-template-columns: 1fr;\n  }\n}"
+          },
+          {
+            name: "Mobile First Design",
+            usage: "most",
+            theory: "Mobile first মানে আগে ছোট screen-এর জন্য design করা, পরে বড় screen-এর জন্য enhance করা। এটি modern best practice কারণ mobile user অনেক বেশি। CSS লিখতেও এতে cleaner flow পাওয়া যায়।",
+            example: ".card {\n  padding: 14px;\n}\n@media (min-width: 768px) {\n  .card {\n    padding: 24px;\n  }\n}"
+          },
+          {
+            name: "Fluid Layout",
+            usage: "most",
+            theory: "Fluid layout fixed pixel এর বদলে percentage, max-width, minmax, flex, grid ব্যবহার করে screen অনুযায়ী adjust হয়। এতে website naturally responsive হয়। Beginner হিসেবে fixed width কম ব্যবহার করে fluid approach নিলে better result পাওয়া যায়।",
+            example: ".container {\n  width: 90%;\n  max-width: 1200px;\n  margin: auto;\n}"
+          },
+          {
+            name: "Responsive Images",
+            usage: "most",
+            theory: "Image যেন container-এর বাইরে না যায় সেজন্য img {max-width:100%; height:auto;} খুব common। এটি responsive design-এর basic rule।",
+            example: "img {\n  max-width: 100%;\n  height: auto;\n}"
+          }
+        ]
+      },
+      {
+        id: "transform",
+        title: "Transform & Transition",
+        subtitle: "move, rotate, scale, smooth change",
+        topics: [
+          {
+            name: "transform: translate()",
+            usage: "most",
+            theory: "translate() দিয়ে element-কে x বা y direction-এ move করা যায়। Animation, centering hack, hover effect, tooltip placement-এ useful। এটি layout reflow ছাড়াই movement দেয়।",
+            example: ".box:hover {\n  transform: translateY(-5px);\n}"
+          },
+          {
+            name: "transform: scale()",
+            usage: "most",
+            theory: "scale() দিয়ে element ছোট-বড় করা যায়। Hover card zoom, image effect, button interaction-এ খুব common। অতিরিক্ত scale layout overlap করতে পারে, তাই সাবধানে ব্যবহার করতে হয়।",
+            example: ".card:hover {\n  transform: scale(1.03);\n}"
+          },
+          {
+            name: "transform: rotate()",
+            usage: "mid",
+            theory: "rotate() দিয়ে element ঘোরানো যায়। Icon, decorative shape, special hover effect-এ useful। Standard content-এ কম use হলেও UI polish দিতে পারে।",
+            example: ".icon:hover {\n  transform: rotate(10deg);\n}"
+          },
+          {
+            name: "transition",
+            usage: "most",
+            theory: "Transition property style change-কে smooth করে। Hover effect, button color change, transform, shadow change—এসবকে natural feel দিতে transition খুব popular। Joyful UI তৈরিতে এটি গুরুত্বপূর্ণ।",
+            example: ".btn {\n  transition: all .3s ease;\n}"
+          },
+          {
+            name: "transition-property / duration / timing-function / delay",
+            usage: "mid",
+            theory: "Transition shorthand-এর ভিতরের সব অংশ আলাদা করে control করতে চাইলে এগুলো ব্যবহার করা হয়। Fine tuning এর জন্য useful। timing-function যেমন ease, linear, ease-in-out user experience-এ প্রভাব ফেলে।",
+            example: ".box {\n  transition-property: transform;\n  transition-duration: .4s;\n  transition-timing-function: ease-in-out;\n}"
+          }
+        ]
+      },
+      {
+        id: "animation",
+        title: "Animation",
+        subtitle: "keyframes-based animation system",
+        topics: [
+          {
+            name: "@keyframes",
+            usage: "mid",
+            theory: "CSS animation-এর মূল হচ্ছে @keyframes। এখানে animation-এর বিভিন্ন stage define করা হয়। তারপর animation property দিয়ে element-এ apply করা হয়। Loading effect, floating shape, pulse, fade ইত্যাদিতে useful।",
+            example: "@keyframes fadeIn {\n  from { opacity: 0; }\n  to { opacity: 1; }\n}"
+          },
+          {
+            name: "animation shorthand",
+            usage: "mid",
+            theory: "Animation name, duration, timing-function, delay, iteration-count ইত্যাদি shorthand দিয়ে লেখা যায়। Multiple animations-ও দেওয়া যায়। Simple motion effect বানাতে এটি খুব handy।",
+            example: ".box {\n  animation: fadeIn 1s ease forwards;\n}"
+          },
+          {
+            name: "animation-iteration-count",
+            usage: "mid",
+            theory: "Animation কতবার চলবে তা নির্ধারণ করে। infinite দিলে animation বারবার চলতে থাকবে। Loader, pulse icon, floating UI তে common।",
+            example: ".loader {\n  animation: spin 1s linear infinite;\n}"
+          },
+          {
+            name: "animation-fill-mode",
+            usage: "less",
+            theory: "Animation শেষ হওয়ার পরে element final state ধরে রাখবে কিনা তা animation-fill-mode দিয়ে control করা হয়। forwards value কিছু entrance animation-এ useful।",
+            example: ".box {\n  animation: fadeIn .5s ease forwards;\n}"
+          }
+        ]
+      },
+      {
+        id: "effects",
+        title: "Effects",
+        subtitle: "shadow, filter, blend, cursor, clipping",
+        topics: [
+          {
+            name: "box-shadow",
+            usage: "most",
+            theory: "box-shadow দিয়ে card, button, modal, dropdown ইত্যাদিতে depth তৈরি করা যায়। Modern UI-তে shadow subtle হলে ভালো লাগে। Overuse করলে messy দেখায়।",
+            example: ".card {\n  box-shadow: 0 10px 30px rgba(0,0,0,.12);\n}"
+          },
+          {
+            name: "filter",
+            usage: "mid",
+            theory: "filter দিয়ে blur, brightness, contrast, grayscale ইত্যাদি effect দেওয়া যায়। Image hover effect, background blur, disabled state-এ useful।",
+            example: "img:hover {\n  filter: grayscale(100%);\n}"
+          },
+          {
+            name: "backdrop-filter",
+            usage: "mid",
+            theory: "backdrop-filter element-এর পেছনের content blur বা color shift করতে পারে। Glassmorphism UI-তে এটি জনপ্রিয়। Browser support বিবেচনা করতে হয়।",
+            example: ".glass {\n  backdrop-filter: blur(10px);\n}"
+          },
+          {
+            name: "cursor",
+            usage: "most",
+            theory: "cursor property দিয়ে pointer style change করা হয়। Clickable element-এ cursor:pointer দেওয়া basic UX signal। Disabled element-এ not-allowed useful।",
+            example: ".btn {\n  cursor: pointer;\n}"
+          },
+          {
+            name: "clip-path",
+            usage: "less",
+            theory: "clip-path দিয়ে element-এর visible shape custom করা যায়। Advanced decorative design, angled section, polygon shape-এ useful। Regular project-এ কম use হলেও creative CSS-এ powerful।",
+            example: ".shape {\n  clip-path: polygon(0 0, 100% 0, 80% 100%, 0 100%);\n}"
+          }
+        ]
+      },
+      {
+        id: "variables",
+        title: "Variables & Functions",
+        subtitle: "custom properties, calc, clamp and useful functions",
+        topics: [
+          {
+            name: "CSS Variables (Custom Properties)",
+            usage: "most",
+            theory: "CSS variables reusable design values store করতে দেয়। যেমন primary color, spacing, border radius। Theme system, dark mode, maintainable CSS architecture-এ খুব helpful। Modern CSS শেখার জন্য এটি must-know।",
+            example: ":root {\n  --primary: #7c3aed;\n}\n.btn {\n  background: var(--primary);\n}"
+          },
+          {
+            name: "var()",
+            usage: "most",
+            theory: "var() function দিয়ে CSS variable call করা হয়। Fallback value-ও দেওয়া যায়। যেমন var(--primary, blue)। Shared design token system-এ এটি essential।",
+            example: ".title {\n  color: var(--primary);\n}"
+          },
+          {
+            name: "calc()",
+            usage: "mid",
+            theory: "calc() দিয়ে CSS value-এর মধ্যে গাণিতিক হিসাব করা যায়। যেমন full width minus sidebar width। Dynamic sizing-এ useful।",
+            example: ".content {\n  width: calc(100% - 250px);\n}"
+          },
+          {
+            name: "clamp()",
+            usage: "mid",
+            theory: "clamp() responsive typography ও sizing-এর জন্য দারুণ function। এটি minimum, preferred, maximum value define করতে দেয়। ফলে screen অনুযায়ী size fluid হয় কিন্তু সীমার মধ্যে থাকে।",
+            example: "h1 {\n  font-size: clamp(1.8rem, 4vw, 3rem);\n}"
+          },
+          {
+            name: "min(), max()",
+            usage: "less",
+            theory: "min() ও max() কিছু responsive sizing logic-এ useful। Complex layout control-এ কাজে লাগে, তবে beginner stage-এ clamp বেশি practical।",
+            example: ".box {\n  width: min(100%, 500px);\n}"
+          }
+        ]
+      },
+      {
+        id: "advanced",
+        title: "Advanced CSS",
+        subtitle: "modern selectors, scrolling, aspect ratio, layers",
+        topics: [
+          {
+            name: "aspect-ratio",
+            usage: "mid",
+            theory: "aspect-ratio দিয়ে width-height ratio ধরে রাখা যায়। Image box, video embed, card thumbnail, square avatar ইত্যাদিতে খুব useful। আগে padding hack লাগত, এখন এটি clean solution।",
+            example: ".thumb {\n  aspect-ratio: 16 / 9;\n}"
+          },
+          {
+            name: "scroll-behavior",
+            usage: "mid",
+            theory: "Anchor link-এ smooth scrolling দিতে scroll-behavior: smooth ব্যবহার হয়। Single page navigation বা notes dashboard-এ pleasant user experience দেয়।",
+            example: "html {\n  scroll-behavior: smooth;\n}"
+          },
+          {
+            name: "scroll-snap",
+            usage: "less",
+            theory: "Horizontal slider বা section snapping UI-তে scroll-snap useful। Special design-এ ব্যবহার হয়, everyday CSS-এ কম।",
+            example: ".slider {\n  scroll-snap-type: x mandatory;\n}"
+          },
+          {
+            name: "is() and where()",
+            usage: "mid",
+            theory: "Modern selector helper function হিসেবে :is() এবং :where() ব্যবহার করা হয়। Complex selector clean করতে helpful। Specificity handling-এ :where() বিশেষ useful।",
+            example: ":is(h1, h2, h3) {\n  color: #111827;\n}"
+          },
+          {
+            name: "nth-child()",
+            usage: "mid",
+            theory: "Specific pattern অনুযায়ী child select করতে nth-child() ব্যবহার হয়। Zebra table row, card pattern, alternating layout ইত্যাদিতে helpful।",
+            example: ".item:nth-child(odd) {\n  background: #f8fafc;\n}"
+          },
+          {
+            name: "user-select",
+            usage: "less",
+            theory: "Text select করা যাবে কিনা তা user-select দিয়ে control করা হয়। Button label, drag handle, special UI component-এ sometimes useful।",
+            example: ".btn {\n  user-select: none;\n}"
+          },
+          {
+            name: "pointer-events",
+            usage: "less",
+            theory: "Element mouse interaction নেবে কিনা pointer-events দিয়ে control করা হয়। Overlay, decorative layer, disabled-like behavior-এ useful।",
+            example: ".overlay {\n  pointer-events: none;\n}"
+          }
+        ]
+      },
+      {
+        id: "pseudo",
+        title: "Pseudo Classes & Pseudo Elements",
+        subtitle: "state-based styling and generated content",
+        topics: [
+          {
+            name: ":hover",
+            usage: "most",
+            theory: "Mouse element-এর উপর গেলে style পরিবর্তন করতে :hover ব্যবহার হয়। Button, link, card interaction-এ খুব common। তবে mobile device-এ hover behavior আলাদা হতে পারে, সেটাও মাথায় রাখা উচিত।",
+            example: ".btn:hover {\n  background: #6d28d9;\n}"
+          },
+          {
+            name: ":focus",
+            usage: "most",
+            theory: "Input, button বা focusable element keyboard বা click-এ focus হলে :focus style apply হয়। Accessibility-এর জন্য এটি অত্যন্ত জরুরি। Visible focus ring keyboard navigation users-এর জন্য helpful।",
+            example: "input:focus {\n  border-color: blue;\n  outline: 2px solid skyblue;\n}"
+          },
+          {
+            name: ":active",
+            usage: "mid",
+            theory: "Element press বা activate হওয়ার সময় :active কাজ করে। Button press effect দিতে useful।",
+            example: ".btn:active {\n  transform: scale(0.98);\n}"
+          },
+          {
+            name: ":visited",
+            usage: "less",
+            theory: "Previously visited link-এর style change করতে :visited ব্যবহার হয়। Blog বা notes website-এ helpful হতে পারে।",
+            example: "a:visited {\n  color: purple;\n}"
+          },
+          {
+            name: ":first-child / :last-child",
+            usage: "mid",
+            theory: "Parent-এর প্রথম বা শেষ child target করতে useful। List spacing, border removal, special corner rounding ইত্যাদিতে common।",
+            example: ".list li:last-child {\n  border-bottom: none;\n}"
+          },
+          {
+            name: "::before",
+            usage: "most",
+            theory: "::before pseudo-element দিয়ে element-এর content-এর আগে generated content যোগ করা যায়। Decorative icon, overlay, underline effect, custom bullet তৈরিতে useful।",
+            example: ".title::before {\n  content: '★ ';\n  color: gold;\n}"
+          },
+          {
+            name: "::after",
+            usage: "most",
+            theory: "::after similar ভাবে content-এর পরে generated content যোগ করে। Clearfix, badge dot, decorative line, hover underline effect-এ common।",
+            example: ".link::after {\n  content: '';\n  display: block;\n  height: 2px;\n  background: currentColor;\n}"
+          },
+          {
+            name: "::placeholder",
+            usage: "mid",
+            theory: "Input placeholder text style করতে ::placeholder ব্যবহার করা হয়। Form UI consistent করতে helpful।",
+            example: "input::placeholder {\n  color: #94a3b8;\n}"
+          },
+          {
+            name: "::selection",
+            usage: "less",
+            theory: "User text select করলে selection color customize করতে ::selection ব্যবহার হয়। Small polish effect হিসেবে useful।",
+            example: "::selection {\n  background: #c4b5fd;\n  color: #111827;\n}"
+          }
+        ]
+      },
+      {
+        id: "forms",
+        title: "Forms UI",
+        subtitle: "input, button, textarea, states and appearance",
+        topics: [
+          {
+            name: "Styling Inputs",
+            usage: "most",
+            theory: "Input styling-এ padding, border, border-radius, font-size, width, focus state খুব common। Beginner-দের form styling শেখা জরুরি কারণ প্রায় সব web app-এ form থাকে।",
+            example: "input {\n  width: 100%;\n  padding: 12px;\n  border: 1px solid #cbd5e1;\n  border-radius: 10px;\n}"
+          },
+          {
+            name: "Styling Buttons",
+            usage: "most",
+            theory: "Button UI-তে background, color, padding, border, cursor, hover, active state — সব গুরুত্বপূর্ণ। Good button design user interaction improve করে।",
+            example: "button {\n  background: #7c3aed;\n  color: white;\n  border: none;\n  padding: 12px 18px;\n  border-radius: 10px;\n}"
+          },
+          {
+            name: "textarea, select styling",
+            usage: "mid",
+            theory: "Textarea এবং select styling input-এর মতো হলেও কিছু browser default style থাকে। Consistent UI-র জন্য এগুলো custom style করা দরকার।",
+            example: "textarea, select {\n  width: 100%;\n  padding: 12px;\n  border-radius: 10px;\n}"
+          },
+          {
+            name: "appearance",
+            usage: "less",
+            theory: "Browser default native appearance remove করতে appearance property ব্যবহার হয়। Custom checkbox, radio, select UI-তে useful, তবে cross-browser testing প্রয়োজন।",
+            example: "select {\n  appearance: none;\n}"
+          }
+        ]
+      },
+      {
+        id: "media",
+        title: "Media & Object Fit",
+        subtitle: "image, video, fitting and cropping behavior",
+        topics: [
+          {
+            name: "object-fit",
+            usage: "most",
+            theory: "object-fit image বা video box-এর ভিতরে কীভাবে fit হবে তা control করে। cover thumbnail crop করে box fill করে, contain পুরো media visible রাখে। Card image UI-তে খুব common।",
+            example: "img {\n  width: 100%;\n  height: 200px;\n  object-fit: cover;\n}"
+          },
+          {
+            name: "object-position",
+            usage: "mid",
+            theory: "object-fit-এর সাথে object-position ব্যবহার করে media কোন অংশ visible থাকবে তা control করা যায়। Portrait image crop adjust করতে useful।",
+            example: "img {\n  object-position: center top;\n}"
+          }
+        ]
       }
-    });
-  });
-</script>
+    ];
+
+    const dashboard = document.getElementById("dashboard");
+
+    function usageLabelClass(usage){
+      if(usage === "most") return "most";
+      if(usage === "mid") return "mid";
+      return "less";
+    }
+
+    function usageLabelText(usage){
+      if(usage === "most") return "Most Use";
+      if(usage === "mid") return "Mid Use";
+      return "Less Use";
+    }
+
+    function renderSections(){
+      dashboard.innerHTML = sections.map(section => `
+        <section class="section" id="${section.id}">
+          <div class="section-title">
+            <div>
+              <h2>✨ ${section.title}</h2>
+              <p>${section.subtitle}</p>
+            </div>
+          </div>
+
+          <div class="cards">
+            ${section.topics.map(topic => `
+              <article class="card" data-name="${topic.name.toLowerCase()}" data-usage="${topic.usage}">
+                <div class="card-top">
+                  <h3>${topic.name}</h3>
+                  <span class="badge ${usageLabelClass(topic.usage)}">${usageLabelText(topic.usage)}</span>
+                </div>
+
+                <div class="desc">
+                  ${topic.theory}
+                </div>
+
+                <div class="mini-demo">
+                  <strong>কখন ব্যবহার করবে?</strong><br>
+                  এই topic টি UI design, layout control, readability, responsive behavior, অথবা interactive styling এর কাজে ব্যবহার হয়। Practice করার সময় example code নিজের HTML এ বসিয়ে result দেখার চেষ্টা করো।
+                </div>
+
+                <pre class="example">${topic.example}</pre>
+              </article>
+            `).join("")}
+          </div>
+        </section>
+      `).join("");
+
+      const allTopics = document.querySelectorAll(".card").length;
+      document.getElementById("topicCount").innerText = allTopics;
+    }
+
+    renderSections();
+
+    const searchInput = document.getElementById("searchInput");
+    const usageFilter = document.getElementById("usageFilter");
+
+    function filterTopics(){
+      const search = searchInput.value.toLowerCase().trim();
+      const usage = usageFilter.value;
+
+      document.querySelectorAll(".section").forEach(section => {
+        let visibleCount = 0;
+
+        section.querySelectorAll(".card").forEach(card => {
+          const name = card.dataset.name;
+          const cardUsage = card.dataset.usage;
+
+          const matchSearch = name.includes(search);
+          const matchUsage = usage === "all" || cardUsage === usage;
+
+          if(matchSearch && matchUsage){
+            card.classList.remove("hidden");
+            visibleCount++;
+          }else{
+            card.classList.add("hidden");
+          }
+        });
+
+        section.style.display = visibleCount ? "block" : "none";
+      });
+    }
+
+    searchInput.addEventListener("input", filterTopics);
+    usageFilter.addEventListener("change", filterTopics);
+  </script>
 </body>
 </html>
